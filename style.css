@@ -1,10 +1,20 @@
 html{
-    background:darkmagenta;
+    background:#192a56;
+    /*overflow: hidden;*/
+}
+
+body{
+    
+}
+
+canvas{
+    z-index: 2;
 }
 
 .player{
-    width:150px;
+    /*width:150px;
     height:150px;
-    background:red;
+    background:red;*/
     position: absolute;
+    transition: 0.085s;
 }
