@@ -1,0 +1,12 @@
+html{
+    background:darkmagenta;
+}
+
+.player{
+    width:150px;
+    height:150px;
+    background:red;
+    position: absolute;
+    bottom:50px;
+    left:50px;
+}
