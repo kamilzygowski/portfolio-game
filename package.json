@@ -20,5 +20,8 @@
   "homepage": "https://github.com/swedishsailor/portfolio-game#readme",
   "dependencies": {
     "browser-sync": "^2.27.7"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.2"
   }
 }
