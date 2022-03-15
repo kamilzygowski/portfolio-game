@@ -7,6 +7,7 @@ let playerBottomPos: string = '';
 let interval: number = 0;
 let playerFaceRight: boolean | null = null;
 let playerMoves: boolean = false;
+let playerFly: boolean = false;
 let playerChangedState: boolean = false;
 let treasureChestOpened: boolean = false;
 let grid = [];
@@ -21,6 +22,9 @@ const designBar: HTMLElement = document.querySelector('.designBar');
 const codeBar: HTMLElement = document.querySelector('.codeBar');
 const creativityBar: HTMLElement = document.querySelector('.creativityBar');
 const treasureChest: HTMLImageElement = document.querySelector('.treasureChest')
+const bat: HTMLImageElement = document.querySelector('.bat');
+const skillsBars: HTMLElement = document.querySelector('.skillsBars');
+const skillsLabels: HTMLElement = document.querySelector('.skillsLabels');
 
 const camera = {
     x: 0,
@@ -135,9 +139,30 @@ const controllPlayerPosition = (): void => {
         designBar.style.height = `${295}px`
     } else if (parseInt(playerLeftPos) > 1960 && parseInt(playerLeftPos) < 2010) {
         codeBar.style.height = `${242}px`
-    } else if (parseInt(playerLeftPos) > 2010) {
+    } else if (parseInt(playerLeftPos) > 2010 && parseInt(playerLeftPos) < 3150) {
+        bat.style.bottom = `${2000}px`
         creativityBar.style.height = `${333}px`
+    } else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180){
+        playerFly = false;
+        bat.style.bottom = `${533}px`
+        player.style.bottom = `${306}px`
+    } else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280 ){
+        playerFly = true;
+        bat.style.bottom = `${parseInt(playerBottomPos) - 30}px`
+        bat.style.left = `${playerLeftPos}px`
+        player.style.bottom = `${545}px`
+    } else if (parseInt(playerLeftPos) > 4280 && parseInt(playerLeftPos) < 4500){
+        playerFly = false;
+        bat.style.bottom = `${2000}px`
+        bat.style.left = `${4900}px`
+        player.style.bottom = `${420}px`
+        skillsBars.style.bottom = `${1500}px`;
+        skillsLabels.style.bottom = `${-1000}px`;
+    } else if (parseInt(playerLeftPos) > 4500){
+        skillsBars.style.bottom = `${250}px`;
+        skillsLabels.style.bottom = `${280}px`;
     }
+    console.log(playerLeftPos)
 }
 
 createGrid(48, grid, canvas);

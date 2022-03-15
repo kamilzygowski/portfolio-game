@@ -120,6 +120,12 @@ img {
     left:1450px;
 }
 
+.bat{
+    left:3150px;
+    bottom: 2000px;
+    transition: 0.3s;
+}
+
 /* ABOUT SECTION */
 
 .about {
@@ -176,4 +182,77 @@ img {
     height:333px;
     left:2595px;
     bottom:190px;
+}
+
+/* SKILLS */
+.skills{
+    position: absolute;
+    left:4700px;
+    width:50px;
+    height:50px;
+    bottom: 670px;
+}
+.skillsUl{
+    list-style: none;
+}
+.skillsLi{
+    font-family: "Kavoon", cursive;
+    font-size:23px;
+    padding-block: 15px;
+    width:957px;
+    border-top:2px solid #7158e2;
+}
+.skillsLabels{
+    position: absolute;
+    left: 4850px;
+    bottom: -1000px;
+    transition: 2s;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+.skillsLabelsLi:first-of-type{
+    border-left:2px solid #7158e2;
+}
+.skillsLabelsLi{
+    
+    font-size:25px;
+    font-family: "Kavoon", cursive;
+    border-right:2px solid #7158e2;
+    height:480px;
+    width:200px;
+    text-align: center;
+}
+.skillsBar{
+    height:50px;
+    width:50px;
+    position: relative;
+    padding-inline: 75px;
+}
+.skillsBars{
+    position: absolute;
+    left:4850px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    /*bottom:270px;*/
+    bottom:1500px;
+    height:440px;
+    width:840px;
+    transition: 2s;
+}
+.skillsBarLi{
+    display: flex;
+    flex-direction: row;
+
+    padding-block:5px;
+    height:50px;
+}
+
+/* CASTLE */
+.castle{
+    position: absolute;
+    left:6060px;
+    bottom:-180px;
+    width:1000px;
 }

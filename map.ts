@@ -1,6 +1,8 @@
 const groundTileWidth = 96;
+const stoneTileWidth = 64;
 const groundTileYPosLvl0 = window.innerHeight - 112;
 const groundTileYPosLvl1 = window.innerHeight - 180;
+const groundTileYPosLvl2 = window.innerHeight - 308;
 const leftGround = new Image();
 leftGround.src = "https://i.postimg.cc/Xq8Ykpw9/ground-Left.png"
 const middleGroundEmpty = new Image();
@@ -11,6 +13,12 @@ const rightGround = new Image();
 rightGround.src = "https://i.postimg.cc/cCZJ3Q8s/ground-Right.png"
 const blankEarth = new Image();
 blankEarth.src = "https://i.postimg.cc/NFQShxn2/earth-Blank.png";
+const leftStone = new Image();
+leftStone.src = "https://i.postimg.cc/VLH8t5tT/left-Stone.png";
+const middleStone = new Image();
+middleStone.src ="https://i.postimg.cc/Sx2pfq7K/middle-Stone.png";
+const rightStone = new Image();
+rightStone.src = "https://i.postimg.cc/zGsYdM0F/right-Stone.png"
 
 export const drawEnvironment = (ctx) => {
     ctx.drawImage(leftGround, 0, groundTileYPosLvl0)
@@ -76,14 +84,39 @@ export const drawEnvironment = (ctx) => {
     ctx.drawImage(blankEarth, groundTileWidth * 34 - 20, groundTileYPosLvl1 + 108)
     ctx.drawImage(middleGroundEmpty, groundTileWidth * 35 - 20, groundTileYPosLvl1)
     ctx.drawImage(blankEarth, groundTileWidth * 35 - 20, groundTileYPosLvl1 + 108)
-    ctx.drawImage(middleGroundNotEmpty, groundTileWidth * 36 - 20, groundTileYPosLvl1)
-    ctx.drawImage(blankEarth, groundTileWidth * 36 - 20, groundTileYPosLvl1 + 108)
-    ctx.drawImage(middleGroundEmpty, groundTileWidth * 37 - 20, groundTileYPosLvl1)
-    ctx.drawImage(blankEarth, groundTileWidth * 37 - 20, groundTileYPosLvl1 + 108)
-    ctx.drawImage(middleGroundNotEmpty, groundTileWidth * 38 - 20, groundTileYPosLvl1)
-    ctx.drawImage(blankEarth, groundTileWidth * 38 - 20, groundTileYPosLvl1 + 108)
-    ctx.drawImage(middleGroundEmpty, groundTileWidth * 39 - 20, groundTileYPosLvl1)
-    ctx.drawImage(blankEarth, groundTileWidth * 39 - 20, groundTileYPosLvl1 + 108)
+    ctx.drawImage(rightGround, groundTileWidth * 36 - 20, groundTileYPosLvl1);
+    ctx.drawImage(blankEarth, groundTileWidth * 36 - 50, groundTileYPosLvl1 + 108)
+    ctx.drawImage(rightGround, groundTileWidth * 37 - 50, groundTileYPosLvl1 + 88)
+
+    ctx.drawImage(leftStone, groundTileWidth * 44, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 45 - 32, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 46 - 32*2, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 47 - 32*3, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 48 - 32*4, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 49 - 32*5, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 50 - 32*6, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 51 - 32*7, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 52 - 32*8, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 53 - 32*9, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 54 - 32*10, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 55 - 32*11, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 56 - 32*12, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 57 - 32*13, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 58 - 32*14, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 59 - 32*15, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 60 - 32*16, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 61 - 32*17, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 62 - 32*18, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 63 - 32*19, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 64 - 32*20, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 65 - 32*21, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 66 - 32*22, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 67 - 32*23, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 68 - 32*24, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 69 - 32*25, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 70 - 32*26, groundTileYPosLvl2);
+    ctx.drawImage(middleStone, groundTileWidth * 71 - 32*27, groundTileYPosLvl2);
+    ctx.drawImage(rightStone, groundTileWidth * 72 - 32*28, groundTileYPosLvl2);
 }
 
 /* TILES */

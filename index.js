@@ -6,6 +6,7 @@ let playerBottomPos = '';
 let interval = 0;
 let playerFaceRight = null;
 let playerMoves = false;
+let playerFly = false;
 let playerChangedState = false;
 let treasureChestOpened = false;
 let grid = [];
@@ -17,6 +18,9 @@ const designBar = document.querySelector('.designBar');
 const codeBar = document.querySelector('.codeBar');
 const creativityBar = document.querySelector('.creativityBar');
 const treasureChest = document.querySelector('.treasureChest');
+const bat = document.querySelector('.bat');
+const skillsBars = document.querySelector('.skillsBars');
+const skillsLabels = document.querySelector('.skillsLabels');
 const camera = {
     x: 0,
     y: 0,
@@ -119,9 +123,34 @@ const controllPlayerPosition = () => {
     else if (parseInt(playerLeftPos) > 1960 && parseInt(playerLeftPos) < 2010) {
         codeBar.style.height = `${242}px`;
     }
-    else if (parseInt(playerLeftPos) > 2010) {
+    else if (parseInt(playerLeftPos) > 2010 && parseInt(playerLeftPos) < 3150) {
+        bat.style.bottom = `${2000}px`;
         creativityBar.style.height = `${333}px`;
     }
+    else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180) {
+        playerFly = false;
+        bat.style.bottom = `${533}px`;
+        player.style.bottom = `${306}px`;
+    }
+    else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280) {
+        playerFly = true;
+        bat.style.bottom = `${parseInt(playerBottomPos) - 30}px`;
+        bat.style.left = `${playerLeftPos}px`;
+        player.style.bottom = `${545}px`;
+    }
+    else if (parseInt(playerLeftPos) > 4280 && parseInt(playerLeftPos) < 4500) {
+        playerFly = false;
+        bat.style.bottom = `${2000}px`;
+        bat.style.left = `${4900}px`;
+        player.style.bottom = `${420}px`;
+        skillsBars.style.bottom = `${1500}px`;
+        skillsLabels.style.bottom = `${-1000}px`;
+    }
+    else if (parseInt(playerLeftPos) > 4500) {
+        skillsBars.style.bottom = `${250}px`;
+        skillsLabels.style.bottom = `${280}px`;
+    }
+    console.log(playerLeftPos);
 };
 createGrid(48, grid, canvas);
 paintGrid(48, ctx, grid);
