@@ -1,33 +1,179 @@
-html{
-    background:#192a56;
-   /* overflow: hidden;*/
-    scroll-behavior: smooth;  
-    width:100%;
-    height:100%;
+@font-face {
+    font-family: "laout_beautypersonal_use";
+    src: url("./fonts/laoutbeautypersonaluse-x3mjg-webfont.woff2") format("woff2"),
+        url("./fonts/laoutbeautypersonaluse-x3mjg-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
 }
 
-body{
-    margin:0;
+html {
+    background: #192a56;
+    /* overflow: hidden;*/
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 100%;
 }
 
-canvas{
+body {
+    margin: 0;
+}
+
+canvas {
     position: absolute;
     z-index: -1;
     transition: 1s;
-    margin:0;
+    margin: 0;
 }
 
-.player{
+.player {
     /*width:150px;
     height:150px;
     background:red;*/
     position: absolute;
     transition: 0.285s;
+    z-index: 150;
 }
 
-iframe{
+iframe {
     position: absolute;
-    left:250px;
-    width:450px;
-    height:550px;
+    left: 250px;
+    width: 450px;
+    height: 550px;
+}
+
+.banner {
+    position: absolute;
+    background: url("https://i.postimg.cc/Cx8Rjc6g/frame.png");
+    background-size: cover;
+    left: 790px;
+    bottom: 650px;
+    background-repeat: no-repeat;
+    padding: 35px;
+    padding-inline: 75px;
+    z-index: 5;
+    font-family: "laout_beautypersonal_use";
+    font-size: 72px;
+    margin: 0;
+    text-align: center;
+}
+.banner2 {
+    left: 2090px;
+    bottom: 670px;
+    background: url("https://i.postimg.cc/1zGhcFQX/frame2.png");
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 30px;
+    padding-inline: 275px;
+    z-index: 5;
+    font-family: "laout_beautypersonal_use";
+    font-size: 72px;
+    margin: 0;
+    text-align: center;
+}
+.specialParagraph {
+    position: absolute;
+    left: 960px;
+    bottom: 550px;
+    font-family: "Kavoon", cursive;
+    font-size: 50px;
+    margin: 0;
+    text-align: center;
+}
+
+img {
+    position: absolute;
+}
+
+.wasd {
+    height: 150px;
+    left: 200px;
+    bottom: 535px;
+    border-radius: 25px;
+}
+
+.wasdP {
+    position: absolute;
+    font-family: "Kavoon", cursive;
+    left: 135px;
+    font-size: 34px;
+    bottom: 440px;
+    text-shadow: 10px 10px 25px rgb(245, 241, 231), -10px 10px 25px rgb(230, 221, 192),
+        -10px -10px 25px rgb(243, 223, 156), 10px -10px 25px rgb(255, 236, 173);
+    animation: blink 3.5s infinite;
+    opacity: 0.7;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+.treasureChest{
+    position:absolute;
+    bottom:150px;
+    width:150px;
+    left:1450px;
+}
+
+/* ABOUT SECTION */
+
+.about {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    left: 1950px;
+    bottom: 390px;
+    display: none;
+}
+
+.aboutLi{
+    font-family: "Kavoon", cursive;
+    font-size:23px;
+    padding-block: 30px;
+    border-top:2px solid rgb(250, 58, 0);
+    width:750px;
+}
+.aboutUl{
+    list-style: none;
+}
+
+.aboutLabels{
+    position: absolute;
+    left: 2140px;
+    list-style: none;
+    display: flex;
+    bottom:525px;
+}
+.aboutLabelsLi{
+    font-size:25px;
+    font-family: "Kavoon", cursive;
+    padding-inline: 48px;
+}
+
+.aboutBar{
+    width:50px;
+    background: rgb(79, 45, 110);
+    position: absolute;
+    border-radius: 4.5px;
+    transition: 3s;
+}
+.designBar{
+    /*height:295px;*/
+    left:2240px;
+    bottom:190px;
+}
+.codeBar{
+    height:242px;
+    left:2405px;
+    bottom:190px;
+}
+.creativityBar{
+    height:333px;
+    left:2595px;
+    bottom:190px;
 }

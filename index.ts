@@ -6,6 +6,7 @@ let interval: number = 0;
 let playerFaceRight: boolean | null = null;
 let playerMoves: boolean = false;
 let playerChangedState: boolean = false;
+let treasureChestOpened:boolean = false;
 let grid = [];
 let gridCloudsPos:number;
 let gridSeaPos:number;
@@ -14,6 +15,12 @@ const playerRunLeft: string = 'https://i.postimg.cc/K8W8XYbr/runLeft.gif';
 const playerRunRight: string = 'https://i.postimg.cc/1tGmNcqJ/runRight.gif';
 const playerIdleLeft: string = 'https://i.postimg.cc/vBmHRdnd/idleLeft.gif';
 const playerIdleRight: string = 'https://i.postimg.cc/K8fttBnc/idle-Right.gif';
+
+// SELECTORS
+const designBar:HTMLElement = document.querySelector('.designBar');
+const codeBar:HTMLElement = document.querySelector('.codeBar');
+const creativityBar:HTMLElement = document.querySelector('.creativityBar');
+const treasureChest:HTMLImageElement = document.querySelector('.treasureChest')
 
 const camera = {
     x: 0,
@@ -58,7 +65,7 @@ const onKeyDown = (e:KeyboardEvent) => {
                         playerFaceRight = true;
                         playerChangedState = true;
                     }
-                    player.style.left = `${parseInt(playerLeftPos) + 15}px`;
+                    player.style.left = `${parseInt(playerLeftPos) + 30}px`;
                     
                     break;
                 }
@@ -74,7 +81,7 @@ const onKeyDown = (e:KeyboardEvent) => {
                         playerFaceRight = false;
                         playerChangedState = true;
                     }
-                    player.style.left = `${parseInt(playerLeftPos) - 15}px`;
+                    player.style.left = `${parseInt(playerLeftPos) - 30}px`;
                     
                     break;
                 }
@@ -83,7 +90,7 @@ const onKeyDown = (e:KeyboardEvent) => {
     }
 }
 // Attaching event listener to playerm ovement, throttled is used to not get too far on key continuously pressed
-document.addEventListener('keydown', throttle((e:KeyboardEvent)=> onKeyDown(e),50))
+document.addEventListener('keydown', throttle((e:KeyboardEvent)=> onKeyDown(e),75))
 
 document.addEventListener('keyup', (e: KeyboardEvent) => {
     if (e.key === 'd') {
@@ -261,11 +268,30 @@ const getPlayerPos = (): void => {
 }
 const controllPlayerPosition = (): void => {
     if (parseInt(playerLeftPos) < 790) {
-        player.style.bottom = `${72}px`;
-    } else if (parseInt(playerLeftPos) > 790) {
-        player.style.bottom = `${144}px`;
+        player.style.bottom = `${232}px`;
+    } else if (parseInt(playerLeftPos) > 790 && parseInt(playerLeftPos) < 1890) {
+        if(parseInt(playerLeftPos) > 1190 && parseInt(playerLeftPos) < 1890){
+            if(treasureChestOpened === false){
+                treasureChestOpened = true;
+                treasureChest.src = "https://i.postimg.cc/W1yqJXLG/DETreasure-Chest1.gif";
+            }
+            }else if(treasureChestOpened === true){
+                treasureChestOpened = false;
+            treasureChest.src = "https://i.postimg.cc/8CbfcDHY/ezgif-com-gif-maker-25.gif";
+        }
+        designBar.style.height = `${0}px`
+        codeBar.style.height = `${0}px`
+        creativityBar.style.height = `${0}px`
+        player.style.bottom = `${306}px`;
+    } else if(parseInt(playerLeftPos) > 1890 && parseInt(playerLeftPos) < 1960 ){
+        designBar.style.height = `${295}px`
+    } else if(parseInt(playerLeftPos) >1960 && parseInt(playerLeftPos)< 2010){
+        codeBar.style.height = `${242}px`
+    }else if(parseInt(playerLeftPos) >2010  ){
+        creativityBar.style.height = `${333}px`
     }
 }
+
 const drawEnvironment = () => {
     const groundTileWidth = 96;
 const groundTileYPosLvl0 = window.innerHeight - 112;
@@ -354,7 +380,7 @@ drawEnvironment();
 const gameLoop = (): void => {
     ctx.save();
 
-    cameraController()
+    //cameraController()
     /*window.onscroll = (e)=>{
         
         window.scroll({
@@ -386,3 +412,11 @@ const gameLoop = (): void => {
 const render = setInterval((): void => {
     gameLoop();
 }, 1000 / 60)
+/*
+const aboutTemplate = document.getElementById('aboutSection');
+const aboutTemplateClone = aboutTemplate.cloneNode(true)
+console.log(aboutTemplateClone)
+document.body.appendChild(aboutTemplateClone);
+*/
+const about:any = document.querySelector('.about')
+about.style.display = "block";

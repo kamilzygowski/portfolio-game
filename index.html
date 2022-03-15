@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="./style.css" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Eagle+Lake&family=Kavoon&family=Modak&family=Potta+One&family=Ribeye&display=swap"
+        rel="stylesheet">
+    <title>Interactive Resume</title>
 </head>
+
 <body>
     <div class="player" style="left:1px; bottom:65px">
-        </div>
+    </div>
+    <img class="wasd" src="https://i.postimg.cc/8ky43CkC/wasd.png" />
+    <p class="wasdP">PRESS WASD TO MOVE</p>
+    <p class="banner">
+        Interactive Resume
+    </p>
+    <p class="specialParagraph">
+        Kamil Żygowski
+    </p>
+    <img src="https://i.postimg.cc/8CbfcDHY/ezgif-com-gif-maker-25.gif" class="treasureChest"/>
+    <p class="banner2">About</p>
+    <div class="about" style="display: none;">
+        <ul class="aboutUl">
+            <li class="aboutLi">Expert</li>
+            <li class="aboutLi">Advanced</li>
+            <li class="aboutLi">Intermediate</li>
+            <li class="aboutLi">Beginner</li>
+        </ul>
+    </div>
+    <ul class="aboutLabels">
+        <li class="aboutLabelsLi">Desing</li>
+        <li class="aboutLabelsLi">Code</li>
+        <li class="aboutLabelsLi">Creativity</li>
+    </ul>
+    <div class="aboutBar designBar" style="height: 0px;"></div>
+    <div class="aboutBar codeBar" style="height: 0px;"></div>
+    <div class="aboutBar creativityBar" style="height: 0px;"></div>
 </body>
+
 <canvas id="canvas"></canvas>
 <script defer type="module" src="./index.js"></script>
+
 </html>

@@ -6,6 +6,7 @@ let interval = 0;
 let playerFaceRight = null;
 let playerMoves = false;
 let playerChangedState = false;
+let treasureChestOpened = false;
 let grid = [];
 let gridCloudsPos;
 let gridSeaPos;
@@ -13,6 +14,10 @@ const playerRunLeft = 'https://i.postimg.cc/K8W8XYbr/runLeft.gif';
 const playerRunRight = 'https://i.postimg.cc/1tGmNcqJ/runRight.gif';
 const playerIdleLeft = 'https://i.postimg.cc/vBmHRdnd/idleLeft.gif';
 const playerIdleRight = 'https://i.postimg.cc/K8fttBnc/idle-Right.gif';
+const designBar = document.querySelector('.designBar');
+const codeBar = document.querySelector('.codeBar');
+const creativityBar = document.querySelector('.creativityBar');
+const treasureChest = document.querySelector('.treasureChest');
 const camera = {
     x: 0,
     y: 0,
@@ -40,7 +45,7 @@ const onKeyDown = (e) => {
                         playerFaceRight = true;
                         playerChangedState = true;
                     }
-                    player.style.left = `${parseInt(playerLeftPos) + 15}px`;
+                    player.style.left = `${parseInt(playerLeftPos) + 30}px`;
                     break;
                 }
             }
@@ -54,14 +59,14 @@ const onKeyDown = (e) => {
                         playerFaceRight = false;
                         playerChangedState = true;
                     }
-                    player.style.left = `${parseInt(playerLeftPos) - 15}px`;
+                    player.style.left = `${parseInt(playerLeftPos) - 30}px`;
                     break;
                 }
             }
         }
     }
 };
-document.addEventListener('keydown', throttle((e) => onKeyDown(e), 50));
+document.addEventListener('keydown', throttle((e) => onKeyDown(e), 75));
 document.addEventListener('keyup', (e) => {
     if (e.key === 'd') {
         playerMoves = false;
@@ -204,10 +209,32 @@ const getPlayerPos = () => {
 };
 const controllPlayerPosition = () => {
     if (parseInt(playerLeftPos) < 790) {
-        player.style.bottom = `${72}px`;
+        player.style.bottom = `${232}px`;
     }
-    else if (parseInt(playerLeftPos) > 790) {
-        player.style.bottom = `${144}px`;
+    else if (parseInt(playerLeftPos) > 790 && parseInt(playerLeftPos) < 1890) {
+        if (parseInt(playerLeftPos) > 1190 && parseInt(playerLeftPos) < 1890) {
+            if (treasureChestOpened === false) {
+                treasureChestOpened = true;
+                treasureChest.src = "https://i.postimg.cc/W1yqJXLG/DETreasure-Chest1.gif";
+            }
+        }
+        else if (treasureChestOpened === true) {
+            treasureChestOpened = false;
+            treasureChest.src = "https://i.postimg.cc/8CbfcDHY/ezgif-com-gif-maker-25.gif";
+        }
+        designBar.style.height = `${0}px`;
+        codeBar.style.height = `${0}px`;
+        creativityBar.style.height = `${0}px`;
+        player.style.bottom = `${306}px`;
+    }
+    else if (parseInt(playerLeftPos) > 1890 && parseInt(playerLeftPos) < 1960) {
+        designBar.style.height = `${295}px`;
+    }
+    else if (parseInt(playerLeftPos) > 1960 && parseInt(playerLeftPos) < 2010) {
+        codeBar.style.height = `${242}px`;
+    }
+    else if (parseInt(playerLeftPos) > 2010) {
+        creativityBar.style.height = `${333}px`;
     }
 };
 const drawEnvironment = () => {
@@ -295,7 +322,6 @@ for (let i = 0; i < canvas.width; i++) {
 drawEnvironment();
 const gameLoop = () => {
     ctx.save();
-    cameraController();
     if (playerChangedState) {
         playerChangedState = false;
         if (playerFaceRight && playerMoves) {
@@ -319,3 +345,5 @@ const gameLoop = () => {
 const render = setInterval(() => {
     gameLoop();
 }, 1000 / 60);
+const about = document.querySelector('.about');
+about.style.display = "block";
