@@ -158,9 +158,11 @@ const controllPlayerPosition = (): void => {
         player.style.bottom = `${420}px`
         skillsBars.style.bottom = `${1500}px`;
         skillsLabels.style.bottom = `${-1000}px`;
-    } else if (parseInt(playerLeftPos) > 4500){
+    } else if (parseInt(playerLeftPos) > 4500 && parseInt(playerLeftPos) < 6150){
         skillsBars.style.bottom = `${250}px`;
         skillsLabels.style.bottom = `${280}px`;
+    } else if (parseInt(playerLeftPos) > 6150){
+        player.style.bottom = `${270}px`
     }
     console.log(playerLeftPos)
 }

@@ -249,10 +249,76 @@ img {
     height:50px;
 }
 
-/* CASTLE */
-.castle{
+/* IFRAMES */
+.planetarium{
+    transform: translate(-237px,52px);
+    padding-bottom: -10px;
+    border: none;
+    border-radius: 2.5px;
+    height:533px;
+    width:459px;
+}
+.dit{
+    transform: translate(-237px,52px);
+    padding-bottom: -10px;
+    border: none;
+    border-radius: 2.5px;
+    height:533px;
+    width:459px;
+}
+.swedish{
+    transform: translate(-237px,52px);
+    padding-bottom: -10px;
+    border: none;
+    border-radius: 2.5px;
+    height:533px;
+    width:459px;
+}
+.frankyCars{
+    transform: translate(-237px,52px);
+    padding-bottom: -10px;
+    border: none;
+    border-radius: 2.5px;
+    height:533px;
+    width:459px;
+}
+.projectsIframe{
+    background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
     position: absolute;
-    left:6060px;
-    bottom:-180px;
-    width:1000px;
+    left:6250px;
+    bottom:240px;
+    width:484px;
+    height:604px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.projectsIframe2{
+    background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
+    position: absolute;
+    left:6850px;
+    bottom:240px;
+    width:484px;
+    height:604px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.projectsIframe3{
+    background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
+    position: absolute;
+    left:7450px;
+    bottom:240px;
+    width:484px;
+    height:604px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.projectsIframe4{
+    background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left:8050px;
+    bottom:240px;
+    width:484px;
+    height:604px;
 }
