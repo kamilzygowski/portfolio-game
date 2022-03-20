@@ -4,7 +4,7 @@ export const drawAnim = (x, y, width, height, src, framesNumber, interval, ctx) 
     const thisFrame = Math.round(interval % ((framesNumber - 1) * 10) / 10);
     ctx.drawImage(image, width * thisFrame, 0, width, height, x, y, width, height);
 };
-export function scrollTo(element, duration) {
+export function scrollToModified(element, duration) {
     var e = document.documentElement;
     if (e.scrollLeft === 0) {
         var t = e.scrollLeft;
@@ -34,8 +34,8 @@ function scrollToX(element, xFrom, xTo, t01, speed, step, motion) {
     }, step);
 }
 function easeOutCuaic(t) {
-    t--;
-    return t * t * t + 1;
+    t++;
+    return t === 0 ? 0 : Math.pow(2, 10 * t - 10);
 }
 export function throttle(func, interval) {
     let timeout;

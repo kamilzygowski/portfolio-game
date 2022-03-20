@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="player" style="left:1px; bottom:65px">
+    <div class="player" style="left:360px; bottom:65px">
     </div>
     <img class="wasd" src="https://i.postimg.cc/8ky43CkC/wasd.png" />
     <p class="wasdP">PRESS WASD TO MOVE</p>
@@ -44,6 +44,7 @@
     <div class="aboutBar codeBar" style="height: 0px;"></div>
     <div class="aboutBar creativityBar" style="height: 0px;"></div>
     <img class="bat" src="https://i.postimg.cc/GtfG428k/bat.gif" />
+    <p class="banner3">Skills</p>
     <div class="skills">
         <ul class="skillsUl">
             <li class="skillsLi">HTML</li>
@@ -70,21 +71,30 @@
         <li class="skillsBarLi"><img class="skillsBar" src="https://i.postimg.cc/25Hf1cfN/01.gif"/><img class="skillsBar" src="https://i.postimg.cc/25Hf1cfN/01.gif"/></li>
         <li class="skillsBarLi"><img class="skillsBar" src="https://i.postimg.cc/25Hf1cfN/01.gif"/></li>
     </ul>
+    <img src="https://i.postimg.cc/mg4ZyZck/Marip-Pipe.png" class="marioPipe"/>
     <div class="projectsIframe">
-        <iframe src="https://swedishsailor.github.io/planetarium/" class="planetarium" ></iframe>
+        <iframe src="https://swedishsailor.github.io/planetarium/" class="planetarium" seamless="false" loading="lazy"></iframe>
     </div>
     <div class="projectsIframe2">
-        <iframe src="https://deepintopic.pl/" class="dit"></iframe>
+        <iframe src="https://deepintopic.pl/" class="dit" seamless="false" loading="lazy"></iframe>
     </div>
     <div class="projectsIframe3">
-        <iframe src="https://swedishsailor.github.io/" class="swedish"></iframe>
+        <iframe src="https://swedishsailor.github.io/" class="swedish" loading="lazy"></iframe>
     </div>
-    <div class="projectsIframe4">
-        <iframe src="https://swedishsailor.github.io/frankyCars/" class="frankyCars"></iframe>
-    </div>
+    <!--<div class="projectsIframe4">
+        <iframe src="https://swedishsailor.github.io/frankyCars/" class="frankyCars" loading="lazy"></iframe>
+    </div>-->
 </body>
 
 <canvas id="canvas"></canvas>
 <script defer type="module" src="./index.js"></script>
 
 </html>
+<!-- It prevents <iframe> clickjacking 
+<style> html {visibility:hidden;} </style>
+<script>
+if(self == top)
+{ document.documentElement.style.visibility="visible"; }
+else { top.location = self.location; }
+</script>
+-->

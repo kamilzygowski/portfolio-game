@@ -1,5 +1,5 @@
-import { drawEnvironment, paintGrid } from "./map.js";
-import { throttle, createGrid } from "./utils.js";
+import { paintGrid } from "./map.js";
+import { throttle, createGrid, scrollToModified } from "./utils.js";
 
 const player: HTMLElement = document.querySelector('.player');
 let playerLeftPos: string = '';
@@ -11,6 +11,7 @@ let playerFly: boolean = false;
 let playerChangedState: boolean = false;
 let treasureChestOpened: boolean = false;
 let grid = [];
+let playerScrollPos=0;
 // Player images
 const playerRunLeft: string = 'https://i.postimg.cc/K8W8XYbr/runLeft.gif';
 const playerRunRight: string = 'https://i.postimg.cc/1tGmNcqJ/runRight.gif';
@@ -35,7 +36,7 @@ const camera = {
 
 const canvas: any = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth * 8;
+canvas.width = 11200;
 canvas.height = window.innerHeight;
 
 const playerImg = document.createElement('img');
@@ -58,8 +59,8 @@ const onKeyDown = (e: KeyboardEvent) => {
                         playerFaceRight = true;
                         playerChangedState = true;
                     }
-                    player.style.left = `${parseInt(playerLeftPos) + 30}px`;
-
+                    player.style.left = `${parseInt(playerLeftPos) + 22}px`;
+                    playerScrollPos = parseInt(playerLeftPos) + 3750
                     break;
                 }
             }
@@ -74,8 +75,8 @@ const onKeyDown = (e: KeyboardEvent) => {
                         playerFaceRight = false;
                         playerChangedState = true;
                     }
-                    player.style.left = `${parseInt(playerLeftPos) - 30}px`;
-
+                    player.style.left = `${parseInt(playerLeftPos) - 22}px`;
+                    playerScrollPos = parseInt(playerLeftPos) - 3750
                     break;
                 }
             }
@@ -97,13 +98,23 @@ document.addEventListener('keyup', (e: KeyboardEvent) => {
     }
 })
 
-const cameraController = () => {
-    //scrollTo(player,1)
-    window.scrollTo({
+const fromPxToIntConveter = (px) => {
+    let res = '';
+    for (let i: number = 0; i < Array.from(px).length - 2; i++) {
+        res += Array.from(player.style.left)[i]
+    }
+    return parseInt(res);
+}
+
+
+function cameraController() {
+    //scrollTo(parseInt(playerLeftPos) - 200, 0)
+    scrollTo(playerScrollPos - 400, 0);
+    /*window.scrollTo({
         left: (parseInt(playerLeftPos) - 132 / 2 - window.innerWidth / 3),
-    });
+    });*/
     //if(parseInt(playerLeftPos) - 132/2 > window.innerWidth/2)
-    // window.scroll(window.scrollX + 1890, 0);
+    //scrollToModified(parseInt(playerLeftPos) - 250, 22);
 }
 
 const getPlayerPos = (): void => {
@@ -142,44 +153,95 @@ const controllPlayerPosition = (): void => {
     } else if (parseInt(playerLeftPos) > 2010 && parseInt(playerLeftPos) < 3150) {
         bat.style.bottom = `${2000}px`
         creativityBar.style.height = `${333}px`
-    } else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180){
+    } else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180) {
         playerFly = false;
         bat.style.bottom = `${533}px`
         player.style.bottom = `${306}px`
-    } else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280 ){
+    } else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280) {
         playerFly = true;
         bat.style.bottom = `${parseInt(playerBottomPos) - 30}px`
         bat.style.left = `${playerLeftPos}px`
         player.style.bottom = `${545}px`
-    } else if (parseInt(playerLeftPos) > 4280 && parseInt(playerLeftPos) < 4500){
+    } else if (parseInt(playerLeftPos) > 4280 && parseInt(playerLeftPos) < 4500) {
         playerFly = false;
         bat.style.bottom = `${2000}px`
         bat.style.left = `${4900}px`
         player.style.bottom = `${420}px`
         skillsBars.style.bottom = `${1500}px`;
         skillsLabels.style.bottom = `${-1000}px`;
-    } else if (parseInt(playerLeftPos) > 4500 && parseInt(playerLeftPos) < 6150){
+    } else if (parseInt(playerLeftPos) > 4500 && parseInt(playerLeftPos) < 5750) {
         skillsBars.style.bottom = `${250}px`;
         skillsLabels.style.bottom = `${280}px`;
-    } else if (parseInt(playerLeftPos) > 6150){
+        player.style.bottom = `${420}px`
+    } else if (parseInt(playerLeftPos) > 5750 && parseInt(playerLeftPos) < 5800) {
+        //player.style.bottom = `${270}px`
+        player.style.bottom = `${480}px`
+
+    } else if (parseInt(playerLeftPos) > 5800 && parseInt(playerLeftPos) < 5825){
+        player.style.bottom = `${540}px`
+
+    } else if (parseInt(playerLeftPos) > 5825 && parseInt(playerLeftPos) < 5850){
+        player.style.bottom = `${600}px`
+
+    }else if (parseInt(playerLeftPos) > 5850 && parseInt(playerLeftPos) < 5875){
+        player.style.bottom = `${570}px`
+    }else if (parseInt(playerLeftPos) > 5875 && parseInt(playerLeftPos) < 5900){
+        player.style.bottom = `${500}px`
+        
+    }else if (parseInt(playerLeftPos) > 5900 && parseInt(playerLeftPos) < 5925){
+        player.style.bottom = `${450}px`
+        
+    }else if (parseInt(playerLeftPos) > 5925 && parseInt(playerLeftPos) < 5950){
+        player.style.bottom = `${400}px`
+        
+    }else if (parseInt(playerLeftPos) > 5950 && parseInt(playerLeftPos) < 5975) {
+
+        player.style.bottom = `${310}px`
+        
+    } else if (parseInt(playerLeftPos) > 5975 && parseInt(playerLeftPos) < 6000){
+        player.style.bottom = `${310}px`
+        
+    } else if (parseInt(playerLeftPos) > 6000 && parseInt(playerLeftPos) < 6025){
+        player.style.bottom = `${430}px`
+        
+    }else if (parseInt(playerLeftPos) > 6025 && parseInt(playerLeftPos) < 6050){
+        player.style.bottom = `${520}px`
+        
+    }else if (parseInt(playerLeftPos) > 6050 && parseInt(playerLeftPos) < 6075){
+        player.style.bottom = `${650}px`
+        
+    }else if (parseInt(playerLeftPos) > 6075 && parseInt(playerLeftPos) < 6100){
+        player.style.bottom = `${500}px`
+        //player.style.transform = `rotate(${7200}deg)`
+    }else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125){
+        player.style.bottom = `${350}px`
+        player.style.transform = `rotate(${0}deg)`
+    }else if (parseInt(playerLeftPos) > 6125){
         player.style.bottom = `${270}px`
     }
-    console.log(playerLeftPos)
+    //console.log(playerLeftPos)
 }
 
 createGrid(48, grid, canvas);
 paintGrid(48, ctx, grid)
-const clouds = new Image();
-clouds.src = "https://i.postimg.cc/ZYHFT7Sw/clouds.png"
-for (let i = 0; i < canvas.width; i++) {
-    ctx.drawImage(clouds, i * 544, window.innerHeight - 453)
-}
-
-drawEnvironment(ctx);
+/*for(let i =0; i<45; i++){
+    window.scroll({
+        left:0,
+        behavior:'auto'
+    });
+}*/
+window.scroll({
+    left:0,
+    behavior:'auto'
+});
 
 const gameLoop = (): void => {
     ctx.save();
-    //cameraController()
+    cameraController()
+    window.scrollY = parseInt(playerLeftPos)
+    //console.log(window.scrollY)
+    
+    
     /*window.onscroll = (e)=>{
         
         window.scroll({
@@ -190,6 +252,7 @@ const gameLoop = (): void => {
     //ctx.translate(parseInt(playerLeftPos) - canvas.width / 2, parseInt(playerBottomPos) - canvas.height / 2);
     // Check player state to attach correct anim to it every frame
     if (playerChangedState) {
+        playerScrollPos = parseInt(playerLeftPos);
         playerChangedState = false;
         if (playerFaceRight && playerMoves) {
             playerImg.src = playerRunRight
