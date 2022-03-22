@@ -22,6 +22,7 @@ const treasureChest = document.querySelector('.treasureChest');
 const bat = document.querySelector('.bat');
 const skillsBars = document.querySelector('.skillsBars');
 const skillsLabels = document.querySelector('.skillsLabels');
+const marioPlant = document.querySelector('.marioPlant');
 const camera = {
     x: 0,
     y: 0,
@@ -30,7 +31,7 @@ const camera = {
 };
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = 11200;
+canvas.width = 10400;
 canvas.height = window.innerHeight;
 const playerImg = document.createElement('img');
 playerImg.src = playerIdleRight;
@@ -43,7 +44,7 @@ const onKeyDown = (e) => {
                 if (playerFaceRight === undefined) {
                     playerFaceRight = null;
                 }
-                if (parseInt(playerLeftPos) <= canvas.width) {
+                if (parseInt(playerLeftPos) <= 7800) {
                     if (!playerFaceRight || playerFaceRight === null) {
                         playerMoves = true;
                         playerFaceRight = true;
@@ -93,7 +94,11 @@ const fromPxToIntConveter = (px) => {
     return parseInt(res);
 };
 function cameraController() {
-    scrollTo(playerScrollPos - 400, 0);
+    window.scrollTo({
+        left: playerScrollPos - 400,
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 const getPlayerPos = () => {
     playerLeftPos = '';
@@ -107,7 +112,7 @@ const getPlayerPos = () => {
 };
 const controllPlayerPosition = () => {
     if (parseInt(playerLeftPos) < 790) {
-        player.style.bottom = `${232}px`;
+        player.style.bottom = `${212}px`;
     }
     else if (parseInt(playerLeftPos) > 790 && parseInt(playerLeftPos) < 1890) {
         if (parseInt(playerLeftPos) > 1190 && parseInt(playerLeftPos) < 1890) {
@@ -123,28 +128,28 @@ const controllPlayerPosition = () => {
         designBar.style.height = `${0}px`;
         codeBar.style.height = `${0}px`;
         creativityBar.style.height = `${0}px`;
-        player.style.bottom = `${306}px`;
+        player.style.bottom = `${275}px`;
     }
     else if (parseInt(playerLeftPos) > 1890 && parseInt(playerLeftPos) < 1960) {
-        designBar.style.height = `${295}px`;
+        designBar.style.height = `${340}px`;
     }
     else if (parseInt(playerLeftPos) > 1960 && parseInt(playerLeftPos) < 2010) {
-        codeBar.style.height = `${242}px`;
+        codeBar.style.height = `${283}px`;
     }
     else if (parseInt(playerLeftPos) > 2010 && parseInt(playerLeftPos) < 3150) {
         bat.style.bottom = `${2000}px`;
-        creativityBar.style.height = `${333}px`;
+        creativityBar.style.height = `${374}px`;
     }
     else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180) {
         playerFly = false;
         bat.style.bottom = `${533}px`;
-        player.style.bottom = `${306}px`;
+        player.style.bottom = `${275}px`;
     }
     else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280) {
         playerFly = true;
         bat.style.bottom = `${parseInt(playerBottomPos) - 30}px`;
         bat.style.left = `${playerLeftPos}px`;
-        player.style.bottom = `${545}px`;
+        player.style.bottom = `${530}px`;
     }
     else if (parseInt(playerLeftPos) > 4280 && parseInt(playerLeftPos) < 4500) {
         playerFly = false;
@@ -160,46 +165,49 @@ const controllPlayerPosition = () => {
         player.style.bottom = `${420}px`;
     }
     else if (parseInt(playerLeftPos) > 5750 && parseInt(playerLeftPos) < 5800) {
-        player.style.bottom = `${480}px`;
+        player.style.bottom = `${420}px`;
     }
     else if (parseInt(playerLeftPos) > 5800 && parseInt(playerLeftPos) < 5825) {
-        player.style.bottom = `${540}px`;
+        player.style.bottom = `${420}px`;
     }
     else if (parseInt(playerLeftPos) > 5825 && parseInt(playerLeftPos) < 5850) {
-        player.style.bottom = `${600}px`;
-    }
-    else if (parseInt(playerLeftPos) > 5850 && parseInt(playerLeftPos) < 5875) {
-        player.style.bottom = `${570}px`;
-    }
-    else if (parseInt(playerLeftPos) > 5875 && parseInt(playerLeftPos) < 5900) {
-        player.style.bottom = `${500}px`;
-    }
-    else if (parseInt(playerLeftPos) > 5900 && parseInt(playerLeftPos) < 5925) {
-        player.style.bottom = `${450}px`;
-    }
-    else if (parseInt(playerLeftPos) > 5925 && parseInt(playerLeftPos) < 5950) {
-        player.style.bottom = `${400}px`;
-    }
-    else if (parseInt(playerLeftPos) > 5950 && parseInt(playerLeftPos) < 5975) {
-        player.style.bottom = `${310}px`;
-    }
-    else if (parseInt(playerLeftPos) > 5975 && parseInt(playerLeftPos) < 6000) {
-        player.style.bottom = `${310}px`;
-    }
-    else if (parseInt(playerLeftPos) > 6000 && parseInt(playerLeftPos) < 6025) {
         player.style.bottom = `${430}px`;
     }
+    else if (parseInt(playerLeftPos) > 5850 && parseInt(playerLeftPos) < 5875) {
+        player.style.bottom = `${440}px`;
+    }
+    else if (parseInt(playerLeftPos) > 5875 && parseInt(playerLeftPos) < 5900) {
+        player.style.bottom = `${450}px`;
+        marioPlant.style.bottom = `${0}px`;
+    }
+    else if (parseInt(playerLeftPos) > 5900 && parseInt(playerLeftPos) < 5925) {
+        player.style.bottom = `${460}px`;
+    }
+    else if (parseInt(playerLeftPos) > 5925 && parseInt(playerLeftPos) < 5950) {
+        player.style.bottom = `${470}px`;
+        marioPlant.style.bottom = `${170}px`;
+    }
+    else if (parseInt(playerLeftPos) > 5950 && parseInt(playerLeftPos) < 5975) {
+        player.style.bottom = `${455}px`;
+    }
+    else if (parseInt(playerLeftPos) > 5975 && parseInt(playerLeftPos) < 6000) {
+        player.style.bottom = `${430}px`;
+        marioPlant.style.bottom = `${0}px`;
+    }
+    else if (parseInt(playerLeftPos) > 6000 && parseInt(playerLeftPos) < 6025) {
+        player.style.bottom = `${405}px`;
+    }
     else if (parseInt(playerLeftPos) > 6025 && parseInt(playerLeftPos) < 6050) {
-        player.style.bottom = `${520}px`;
+        player.style.bottom = `${370}px`;
     }
     else if (parseInt(playerLeftPos) > 6050 && parseInt(playerLeftPos) < 6075) {
-        player.style.bottom = `${650}px`;
+        player.style.bottom = `${340}px`;
     }
     else if (parseInt(playerLeftPos) > 6075 && parseInt(playerLeftPos) < 6100) {
-        player.style.bottom = `${500}px`;
+        player.style.bottom = `${310}px`;
     }
     else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125) {
-        player.style.bottom = `${350}px`;
+        player.style.bottom = `${270}px`;
         player.style.transform = `rotate(${0}deg)`;
     }
     else if (parseInt(playerLeftPos) > 6125) {
@@ -208,30 +216,26 @@ const controllPlayerPosition = () => {
 };
 createGrid(48, grid, canvas);
 paintGrid(48, ctx, grid);
-window.scroll({
-    left: 0,
-    behavior: 'auto'
-});
 const gameLoop = () => {
     ctx.save();
-    cameraController();
-    window.scrollY = parseInt(playerLeftPos);
-    if (playerChangedState) {
-        playerScrollPos = parseInt(playerLeftPos);
-        playerChangedState = false;
-        if (playerFaceRight && playerMoves) {
-            playerImg.src = playerRunRight;
+    interval++;
+    if (interval > 350)
+        if (playerChangedState) {
+            playerScrollPos = parseInt(playerLeftPos);
+            playerChangedState = false;
+            if (playerFaceRight && playerMoves) {
+                playerImg.src = playerRunRight;
+            }
+            else if (!playerFaceRight && playerMoves) {
+                playerImg.src = playerRunLeft;
+            }
+            else if ((playerFaceRight === true || playerFaceRight === null) && !playerMoves) {
+                playerImg.src = playerIdleRight;
+            }
+            else if ((playerFaceRight === false || playerFaceRight === undefined) && !playerMoves) {
+                playerImg.src = playerIdleLeft;
+            }
         }
-        else if (!playerFaceRight && playerMoves) {
-            playerImg.src = playerRunLeft;
-        }
-        else if ((playerFaceRight === true || playerFaceRight === null) && !playerMoves) {
-            playerImg.src = playerIdleRight;
-        }
-        else if ((playerFaceRight === false || playerFaceRight === undefined) && !playerMoves) {
-            playerImg.src = playerIdleLeft;
-        }
-    }
     interval++;
     getPlayerPos();
     controllPlayerPosition();
@@ -242,3 +246,53 @@ const render = setInterval(() => {
 }, 1000 / 60);
 const about = document.querySelector('.about');
 about.style.display = "block";
+const iframesUl = document.querySelectorAll('.iframeLi');
+const projectsHeader = document.querySelector('.projectsHeader');
+const projectsParagraph = document.querySelector('.projectsParagraph');
+const projectsInfoUl = document.querySelector('.projectsInfoUl');
+const projectsInfoLi = document.createAttribute('li');
+const visitWebsite = document.querySelector('.projectsLinks');
+for (let i = 0; i < iframesUl.length; i++) {
+    iframesUl[i].addEventListener('click', function () {
+        const iframe = document.querySelector('.planetarium');
+        for (let y = 0; y < iframesUl.length; y++) {
+            iframesUl[y].classList.remove('planetariumLi');
+        }
+        if (i === 0) {
+            iframe.src = "https://swedishsailor.github.io/planetarium/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = 'Planetarium';
+            projectsParagraph.textContent = 'Planetarium is a solar system model. You can freely manipulate the view by grabbing window or by scrolling ';
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">JavaScript</li>';
+            projectsInfoUl.innerHTML += '<li class="projectsInfoLi">THREE.js</li>';
+            visitWebsite.href = "https://swedishsailor.github.io/planetarium/";
+        }
+        else if (i === 1) {
+            iframe.src = "https://deepintopic.pl/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = 'Depp in topic';
+            projectsParagraph.textContent = 'Deep in topic is a personal pseudo-scientific blog';
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
+            projectsInfoUl.innerHTML += '<li class="projectsInfoLi">Redux</li>';
+            visitWebsite.href = "https://deepintopic.pl/";
+        }
+        else if (i === 2) {
+            iframe.src = "https://swedishsailor.github.io/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = 'Old Portfolio';
+            projectsParagraph.textContent = 'Old portfolio site with some unity projects in game section :)';
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
+            visitWebsite.href = "https://swedishsailor.github.io/";
+        }
+        else if (i === 3) {
+            iframe.src = "https://swedishsailor.github.io/frankyCars/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = "Franky Cars";
+            projectsParagraph.textContent = 'a website created in 5 days. Simple car warehouse asortment demonstration';
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React Typescript</li>';
+            projectsInfoUl.innerHTML += '<li class="projectsInfoLi">Sqlite</li>';
+            visitWebsite.href = "https://swedishsailor.github.io/frankyCars/";
+        }
+    });
+}
+iframesUl[0].classList.add('planetariumLi');

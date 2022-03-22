@@ -26,6 +26,7 @@ const treasureChest: HTMLImageElement = document.querySelector('.treasureChest')
 const bat: HTMLImageElement = document.querySelector('.bat');
 const skillsBars: HTMLElement = document.querySelector('.skillsBars');
 const skillsLabels: HTMLElement = document.querySelector('.skillsLabels');
+const marioPlant:HTMLElement = document.querySelector('.marioPlant');
 
 const camera = {
     x: 0,
@@ -36,7 +37,7 @@ const camera = {
 
 const canvas: any = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = 11200;
+canvas.width = 10400;
 canvas.height = window.innerHeight;
 
 const playerImg = document.createElement('img');
@@ -53,7 +54,7 @@ const onKeyDown = (e: KeyboardEvent) => {
                 if (playerFaceRight === undefined) {
                     playerFaceRight = null
                 }
-                if (parseInt(playerLeftPos) <= canvas.width) {
+                if (parseInt(playerLeftPos) <= 7800) {
                     if (!playerFaceRight || playerFaceRight === null) {
                         playerMoves = true;
                         playerFaceRight = true;
@@ -109,7 +110,12 @@ const fromPxToIntConveter = (px) => {
 
 function cameraController() {
     //scrollTo(parseInt(playerLeftPos) - 200, 0)
-    scrollTo(playerScrollPos - 400, 0);
+    //scrollTo(playerScrollPos - 400, 0);
+    window.scrollTo({
+        left:playerScrollPos - 400,
+        top:0,
+        behavior:'smooth'
+    });
     /*window.scrollTo({
         left: (parseInt(playerLeftPos) - 132 / 2 - window.innerWidth / 3),
     });*/
@@ -131,7 +137,7 @@ const getPlayerPos = (): void => {
 }
 const controllPlayerPosition = (): void => {
     if (parseInt(playerLeftPos) < 790) {
-        player.style.bottom = `${232}px`;
+        player.style.bottom = `${212}px`;
     } else if (parseInt(playerLeftPos) > 790 && parseInt(playerLeftPos) < 1890) {
         if (parseInt(playerLeftPos) > 1190 && parseInt(playerLeftPos) < 1890) {
             if (treasureChestOpened === false) {
@@ -145,23 +151,23 @@ const controllPlayerPosition = (): void => {
         designBar.style.height = `${0}px`
         codeBar.style.height = `${0}px`
         creativityBar.style.height = `${0}px`
-        player.style.bottom = `${306}px`;
+        player.style.bottom = `${275}px`;
     } else if (parseInt(playerLeftPos) > 1890 && parseInt(playerLeftPos) < 1960) {
-        designBar.style.height = `${295}px`
+        designBar.style.height = `${340}px`
     } else if (parseInt(playerLeftPos) > 1960 && parseInt(playerLeftPos) < 2010) {
-        codeBar.style.height = `${242}px`
+        codeBar.style.height = `${283}px`
     } else if (parseInt(playerLeftPos) > 2010 && parseInt(playerLeftPos) < 3150) {
         bat.style.bottom = `${2000}px`
-        creativityBar.style.height = `${333}px`
+        creativityBar.style.height = `${374}px`
     } else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180) {
         playerFly = false;
         bat.style.bottom = `${533}px`
-        player.style.bottom = `${306}px`
+        player.style.bottom = `${275}px`
     } else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280) {
         playerFly = true;
         bat.style.bottom = `${parseInt(playerBottomPos) - 30}px`
         bat.style.left = `${playerLeftPos}px`
-        player.style.bottom = `${545}px`
+        player.style.bottom = `${530}px`
     } else if (parseInt(playerLeftPos) > 4280 && parseInt(playerLeftPos) < 4500) {
         playerFly = false;
         bat.style.bottom = `${2000}px`
@@ -175,46 +181,43 @@ const controllPlayerPosition = (): void => {
         player.style.bottom = `${420}px`
     } else if (parseInt(playerLeftPos) > 5750 && parseInt(playerLeftPos) < 5800) {
         //player.style.bottom = `${270}px`
-        player.style.bottom = `${480}px`
+        player.style.bottom = `${420}px`
 
     } else if (parseInt(playerLeftPos) > 5800 && parseInt(playerLeftPos) < 5825){
-        player.style.bottom = `${540}px`
+        player.style.bottom = `${420}px`
 
     } else if (parseInt(playerLeftPos) > 5825 && parseInt(playerLeftPos) < 5850){
-        player.style.bottom = `${600}px`
-
+        player.style.bottom = `${430}px`
     }else if (parseInt(playerLeftPos) > 5850 && parseInt(playerLeftPos) < 5875){
-        player.style.bottom = `${570}px`
+        player.style.bottom = `${440}px`
     }else if (parseInt(playerLeftPos) > 5875 && parseInt(playerLeftPos) < 5900){
-        player.style.bottom = `${500}px`
-        
-    }else if (parseInt(playerLeftPos) > 5900 && parseInt(playerLeftPos) < 5925){
         player.style.bottom = `${450}px`
+        marioPlant.style.bottom = `${0}px`
+    }else if (parseInt(playerLeftPos) > 5900 && parseInt(playerLeftPos) < 5925){
+        player.style.bottom = `${460}px`
         
     }else if (parseInt(playerLeftPos) > 5925 && parseInt(playerLeftPos) < 5950){
-        player.style.bottom = `${400}px`
-        
+        player.style.bottom = `${470}px`
+        marioPlant.style.bottom = `${170}px`
     }else if (parseInt(playerLeftPos) > 5950 && parseInt(playerLeftPos) < 5975) {
-
-        player.style.bottom = `${310}px`
+        player.style.bottom = `${455}px`
         
     } else if (parseInt(playerLeftPos) > 5975 && parseInt(playerLeftPos) < 6000){
-        player.style.bottom = `${310}px`
-        
-    } else if (parseInt(playerLeftPos) > 6000 && parseInt(playerLeftPos) < 6025){
         player.style.bottom = `${430}px`
-        
+        marioPlant.style.bottom = `${0}px`
+    } else if (parseInt(playerLeftPos) > 6000 && parseInt(playerLeftPos) < 6025){
+        player.style.bottom = `${405}px`
     }else if (parseInt(playerLeftPos) > 6025 && parseInt(playerLeftPos) < 6050){
-        player.style.bottom = `${520}px`
+        player.style.bottom = `${370}px`
         
     }else if (parseInt(playerLeftPos) > 6050 && parseInt(playerLeftPos) < 6075){
-        player.style.bottom = `${650}px`
+        player.style.bottom = `${340}px`
         
     }else if (parseInt(playerLeftPos) > 6075 && parseInt(playerLeftPos) < 6100){
-        player.style.bottom = `${500}px`
+        player.style.bottom = `${310}px`
         //player.style.transform = `rotate(${7200}deg)`
     }else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125){
-        player.style.bottom = `${350}px`
+        player.style.bottom = `${270}px`
         player.style.transform = `rotate(${0}deg)`
     }else if (parseInt(playerLeftPos) > 6125){
         player.style.bottom = `${270}px`
@@ -224,33 +227,16 @@ const controllPlayerPosition = (): void => {
 
 createGrid(48, grid, canvas);
 paintGrid(48, ctx, grid)
-/*for(let i =0; i<45; i++){
-    window.scroll({
-        left:0,
-        behavior:'auto'
-    });
-}*/
-window.scroll({
-    left:0,
-    behavior:'auto'
-});
 
 const gameLoop = (): void => {
     ctx.save();
-    cameraController()
-    window.scrollY = parseInt(playerLeftPos)
+    interval++;
+    //window.scrollY = parseInt(playerLeftPos)
     //console.log(window.scrollY)
-    
-    
-    /*window.onscroll = (e)=>{
-        
-        window.scroll({
-            left:(parseInt(playerLeftPos) - 132 / 2 - window.innerWidth / 3),
-            
-        });
-    }*/
     //ctx.translate(parseInt(playerLeftPos) - canvas.width / 2, parseInt(playerBottomPos) - canvas.height / 2);
     // Check player state to attach correct anim to it every frame
+    if (interval > 350)
+    //cameraController()
     if (playerChangedState) {
         playerScrollPos = parseInt(playerLeftPos);
         playerChangedState = false;
@@ -267,7 +253,6 @@ const gameLoop = (): void => {
     interval++;
     getPlayerPos();
     controllPlayerPosition();
-    //document.body.scrollIntoView();
     ctx.restore();
 }
 
@@ -277,3 +262,61 @@ const render = setInterval((): void => {
 
 const about: any = document.querySelector('.about')
 about.style.display = "block";
+
+const iframesUl = document.querySelectorAll('.iframeLi');
+const projectsHeader = document.querySelector('.projectsHeader');
+const projectsParagraph = document.querySelector('.projectsParagraph');
+const projectsInfoUl = document.querySelector('.projectsInfoUl');
+const projectsInfoLi = document.createAttribute('li');
+const visitWebsite:HTMLLinkElement = document.querySelector('.projectsLinks');
+for(let i =0; i<iframesUl.length; i++){
+    iframesUl[i].addEventListener('click', function(){
+        const iframe:any = document.querySelector('.planetarium');
+        for(let y =0; y<iframesUl.length; y++){
+            iframesUl[y].classList.remove('planetariumLi');
+        }
+        if(i ===0){
+        iframe.src = "https://swedishsailor.github.io/planetarium/";
+        iframesUl[i].classList.add('planetariumLi');
+        projectsHeader.textContent = 'Planetarium'
+        projectsParagraph.textContent = 'Planetarium is a solar system model. You can freely manipulate the view by grabbing window or by scrolling '
+        projectsInfoUl.innerHTML = '<li class="projectsInfoLi">JavaScript</li>';
+        projectsInfoUl.innerHTML += '<li class="projectsInfoLi">THREE.js</li>';
+        visitWebsite.href = "https://swedishsailor.github.io/planetarium/";
+    }
+        else if(i === 1){
+        iframe.src = "https://deepintopic.pl/";
+        iframesUl[i].classList.add('planetariumLi');
+        projectsHeader.textContent = 'Depp in topic';
+        projectsParagraph.textContent = 'Deep in topic is a personal pseudo-scientific blog'
+        projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
+        projectsInfoUl.innerHTML += '<li class="projectsInfoLi">Redux</li>';
+        visitWebsite.href = "https://deepintopic.pl/";
+    }
+        else if(i===2){
+        iframe.src = "https://swedishsailor.github.io/";
+        iframesUl[i].classList.add('planetariumLi');
+        projectsHeader.textContent = 'Old Portfolio'
+        projectsParagraph.textContent = 'Old portfolio site with some unity projects in game section :)'
+        projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
+        visitWebsite.href = "https://swedishsailor.github.io/";
+    }
+        else if(i===3){
+        iframe.src = "https://swedishsailor.github.io/frankyCars/";
+        iframesUl[i].classList.add('planetariumLi');
+        projectsHeader.textContent = "Franky Cars"
+        projectsParagraph.textContent = 'a website created in 5 days. Simple car warehouse asortment demonstration'
+        projectsInfoUl.innerHTML ='<li class="projectsInfoLi">React Typescript</li>';
+        projectsInfoUl.innerHTML +='<li class="projectsInfoLi">Sqlite</li>';
+        visitWebsite.href = "https://swedishsailor.github.io/frankyCars/";
+    }
+    })  
+}
+// Always comeback to the start with camera ASAP
+/*window.scrollTo({
+    left:0,
+    top:0,
+    behavior:'auto'
+});*/
+// Init first UL iframe item
+iframesUl[0].classList.add('planetariumLi');
