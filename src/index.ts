@@ -1,5 +1,7 @@
-import { paintGrid } from "./map.js";
-import { throttle, createGrid, scrollToModified } from "./utils.js";
+import '@/styles/index.scss'
+
+import { paintGrid } from './map';
+import { throttle, createGrid, scrollToModified } from './utils';
 
 const player: HTMLElement = document.querySelector('.player');
 let playerLeftPos: string = '';

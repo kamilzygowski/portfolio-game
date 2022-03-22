@@ -1,3 +1,4 @@
+import '@/styles/index.scss';
 import { paintGrid } from "./map.js";
 import { throttle, createGrid } from "./utils.js";
 const player = document.querySelector('.player');
