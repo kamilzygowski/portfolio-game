@@ -1,6 +1,6 @@
 import '@/styles/index.scss';
-import { paintGrid } from "./map.js";
-import { throttle, createGrid } from "./utils.js";
+import { paintGrid } from './map';
+import { throttle, createGrid } from './utils';
 const player = document.querySelector('.player');
 let playerLeftPos = '';
 let playerBottomPos = '';
@@ -24,12 +24,6 @@ const bat = document.querySelector('.bat');
 const skillsBars = document.querySelector('.skillsBars');
 const skillsLabels = document.querySelector('.skillsLabels');
 const marioPlant = document.querySelector('.marioPlant');
-const camera = {
-    x: 0,
-    y: 0,
-    width: window.innerWidth,
-    height: window.innerHeight
-};
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 10400;
@@ -45,14 +39,14 @@ const onKeyDown = (e) => {
                 if (playerFaceRight === undefined) {
                     playerFaceRight = null;
                 }
-                if (parseInt(playerLeftPos) <= 7800) {
+                if (parseInt(playerLeftPos) <= 7750) {
                     if (!playerFaceRight || playerFaceRight === null) {
                         playerMoves = true;
                         playerFaceRight = true;
                         playerChangedState = true;
                     }
+                    playerScrollPos = parseInt(playerLeftPos) + 3150;
                     player.style.left = `${parseInt(playerLeftPos) + 22}px`;
-                    playerScrollPos = parseInt(playerLeftPos) + 3750;
                     break;
                 }
             }
@@ -66,8 +60,8 @@ const onKeyDown = (e) => {
                         playerFaceRight = false;
                         playerChangedState = true;
                     }
+                    playerScrollPos = parseInt(playerLeftPos) - 6150;
                     player.style.left = `${parseInt(playerLeftPos) - 22}px`;
-                    playerScrollPos = parseInt(playerLeftPos) - 3750;
                     break;
                 }
             }
@@ -95,7 +89,7 @@ const fromPxToIntConveter = (px) => {
     return parseInt(res);
 };
 function cameraController() {
-    window.scrollTo({
+    window.scroll({
         left: playerScrollPos - 400,
         top: 0,
         behavior: 'smooth'
@@ -113,7 +107,7 @@ const getPlayerPos = () => {
 };
 const controllPlayerPosition = () => {
     if (parseInt(playerLeftPos) < 790) {
-        player.style.bottom = `${212}px`;
+        player.style.bottom = `${227}px`;
     }
     else if (parseInt(playerLeftPos) > 790 && parseInt(playerLeftPos) < 1890) {
         if (parseInt(playerLeftPos) > 1190 && parseInt(playerLeftPos) < 1890) {
@@ -129,7 +123,7 @@ const controllPlayerPosition = () => {
         designBar.style.height = `${0}px`;
         codeBar.style.height = `${0}px`;
         creativityBar.style.height = `${0}px`;
-        player.style.bottom = `${275}px`;
+        player.style.bottom = `${290}px`;
     }
     else if (parseInt(playerLeftPos) > 1890 && parseInt(playerLeftPos) < 1960) {
         designBar.style.height = `${340}px`;
@@ -144,7 +138,7 @@ const controllPlayerPosition = () => {
     else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180) {
         playerFly = false;
         bat.style.bottom = `${533}px`;
-        player.style.bottom = `${275}px`;
+        player.style.bottom = `${290}px`;
     }
     else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280) {
         playerFly = true;
@@ -161,8 +155,8 @@ const controllPlayerPosition = () => {
         skillsLabels.style.bottom = `${-1000}px`;
     }
     else if (parseInt(playerLeftPos) > 4500 && parseInt(playerLeftPos) < 5750) {
-        skillsBars.style.bottom = `${250}px`;
-        skillsLabels.style.bottom = `${280}px`;
+        skillsBars.style.bottom = `${265}px`;
+        skillsLabels.style.bottom = `${295}px`;
         player.style.bottom = `${420}px`;
     }
     else if (parseInt(playerLeftPos) > 5750 && parseInt(playerLeftPos) < 5800) {
@@ -208,11 +202,11 @@ const controllPlayerPosition = () => {
         player.style.bottom = `${310}px`;
     }
     else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125) {
-        player.style.bottom = `${270}px`;
+        player.style.bottom = `${285}px`;
         player.style.transform = `rotate(${0}deg)`;
     }
     else if (parseInt(playerLeftPos) > 6125) {
-        player.style.bottom = `${270}px`;
+        player.style.bottom = `${285}px`;
     }
 };
 createGrid(48, grid, canvas);
@@ -220,23 +214,25 @@ paintGrid(48, ctx, grid);
 const gameLoop = () => {
     ctx.save();
     interval++;
-    if (interval > 350)
-        if (playerChangedState) {
-            playerScrollPos = parseInt(playerLeftPos);
-            playerChangedState = false;
-            if (playerFaceRight && playerMoves) {
-                playerImg.src = playerRunRight;
-            }
-            else if (!playerFaceRight && playerMoves) {
-                playerImg.src = playerRunLeft;
-            }
-            else if ((playerFaceRight === true || playerFaceRight === null) && !playerMoves) {
-                playerImg.src = playerIdleRight;
-            }
-            else if ((playerFaceRight === false || playerFaceRight === undefined) && !playerMoves) {
-                playerImg.src = playerIdleLeft;
-            }
+    if (interval > 150) {
+        cameraController();
+    }
+    if (playerChangedState) {
+        playerScrollPos = parseInt(playerLeftPos);
+        playerChangedState = false;
+        if (playerFaceRight && playerMoves) {
+            playerImg.src = playerRunRight;
         }
+        else if (!playerFaceRight && playerMoves) {
+            playerImg.src = playerRunLeft;
+        }
+        else if ((playerFaceRight === true || playerFaceRight === null) && !playerMoves) {
+            playerImg.src = playerIdleRight;
+        }
+        else if ((playerFaceRight === false || playerFaceRight === undefined) && !playerMoves) {
+            playerImg.src = playerIdleLeft;
+        }
+    }
     interval++;
     getPlayerPos();
     controllPlayerPosition();
@@ -251,7 +247,6 @@ const iframesUl = document.querySelectorAll('.iframeLi');
 const projectsHeader = document.querySelector('.projectsHeader');
 const projectsParagraph = document.querySelector('.projectsParagraph');
 const projectsInfoUl = document.querySelector('.projectsInfoUl');
-const projectsInfoLi = document.createAttribute('li');
 const visitWebsite = document.querySelector('.projectsLinks');
 for (let i = 0; i < iframesUl.length; i++) {
     iframesUl[i].addEventListener('click', function () {
@@ -295,5 +290,13 @@ for (let i = 0; i < iframesUl.length; i++) {
             visitWebsite.href = "https://swedishsailor.github.io/frankyCars/";
         }
     });
+}
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+else {
+    window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+    };
 }
 iframesUl[0].classList.add('planetariumLi');

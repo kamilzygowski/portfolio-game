@@ -13,13 +13,12 @@ let playerFly: boolean = false;
 let playerChangedState: boolean = false;
 let treasureChestOpened: boolean = false;
 let grid = [];
-let playerScrollPos=0;
+let playerScrollPos: number = 0;
 // Player images
 const playerRunLeft: string = 'https://i.postimg.cc/K8W8XYbr/runLeft.gif';
 const playerRunRight: string = 'https://i.postimg.cc/1tGmNcqJ/runRight.gif';
 const playerIdleLeft: string = 'https://i.postimg.cc/vBmHRdnd/idleLeft.gif';
 const playerIdleRight: string = 'https://i.postimg.cc/K8fttBnc/idle-Right.gif';
-
 // SELECTORS
 const designBar: HTMLElement = document.querySelector('.designBar');
 const codeBar: HTMLElement = document.querySelector('.codeBar');
@@ -28,23 +27,14 @@ const treasureChest: HTMLImageElement = document.querySelector('.treasureChest')
 const bat: HTMLImageElement = document.querySelector('.bat');
 const skillsBars: HTMLElement = document.querySelector('.skillsBars');
 const skillsLabels: HTMLElement = document.querySelector('.skillsLabels');
-const marioPlant:HTMLElement = document.querySelector('.marioPlant');
-
-const camera = {
-    x: 0,
-    y: 0,
-    width: window.innerWidth,
-    height: window.innerHeight
-}
-
+const marioPlant: HTMLElement = document.querySelector('.marioPlant');
 const canvas: any = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 canvas.width = 10400;
 canvas.height = window.innerHeight;
 
 const playerImg = document.createElement('img');
 playerImg.src = playerIdleRight;
-
 player.appendChild(playerImg);
 
 const onKeyDown = (e: KeyboardEvent) => {
@@ -56,14 +46,15 @@ const onKeyDown = (e: KeyboardEvent) => {
                 if (playerFaceRight === undefined) {
                     playerFaceRight = null
                 }
-                if (parseInt(playerLeftPos) <= 7800) {
+                if (parseInt(playerLeftPos) <= 7750) {
                     if (!playerFaceRight || playerFaceRight === null) {
                         playerMoves = true;
                         playerFaceRight = true;
                         playerChangedState = true;
                     }
+                    playerScrollPos = parseInt(playerLeftPos) + 3150
                     player.style.left = `${parseInt(playerLeftPos) + 22}px`;
-                    playerScrollPos = parseInt(playerLeftPos) + 3750
+
                     break;
                 }
             }
@@ -78,8 +69,9 @@ const onKeyDown = (e: KeyboardEvent) => {
                         playerFaceRight = false;
                         playerChangedState = true;
                     }
+                    playerScrollPos = parseInt(playerLeftPos) - 6150
                     player.style.left = `${parseInt(playerLeftPos) - 22}px`;
-                    playerScrollPos = parseInt(playerLeftPos) - 3750
+
                     break;
                 }
             }
@@ -88,7 +80,6 @@ const onKeyDown = (e: KeyboardEvent) => {
 }
 // Attaching event listener to playerm ovement, throttled is used to not get too far on key continuously pressed
 document.addEventListener('keydown', throttle((e: KeyboardEvent) => onKeyDown(e), 75))
-
 document.addEventListener('keyup', (e: KeyboardEvent) => {
     if (e.key === 'd') {
         playerMoves = false;
@@ -100,7 +91,6 @@ document.addEventListener('keyup', (e: KeyboardEvent) => {
         playerFaceRight = undefined;
     }
 })
-
 const fromPxToIntConveter = (px) => {
     let res = '';
     for (let i: number = 0; i < Array.from(px).length - 2; i++) {
@@ -108,21 +98,12 @@ const fromPxToIntConveter = (px) => {
     }
     return parseInt(res);
 }
-
-
 function cameraController() {
-    //scrollTo(parseInt(playerLeftPos) - 200, 0)
-    //scrollTo(playerScrollPos - 400, 0);
-    window.scrollTo({
-        left:playerScrollPos - 400,
-        top:0,
-        behavior:'smooth'
+    window.scroll({
+        left: playerScrollPos - 400,
+        top: 0,
+        behavior: 'smooth'
     });
-    /*window.scrollTo({
-        left: (parseInt(playerLeftPos) - 132 / 2 - window.innerWidth / 3),
-    });*/
-    //if(parseInt(playerLeftPos) - 132/2 > window.innerWidth/2)
-    //scrollToModified(parseInt(playerLeftPos) - 250, 22);
 }
 
 const getPlayerPos = (): void => {
@@ -139,7 +120,7 @@ const getPlayerPos = (): void => {
 }
 const controllPlayerPosition = (): void => {
     if (parseInt(playerLeftPos) < 790) {
-        player.style.bottom = `${212}px`;
+        player.style.bottom = `${227}px`;
     } else if (parseInt(playerLeftPos) > 790 && parseInt(playerLeftPos) < 1890) {
         if (parseInt(playerLeftPos) > 1190 && parseInt(playerLeftPos) < 1890) {
             if (treasureChestOpened === false) {
@@ -153,7 +134,7 @@ const controllPlayerPosition = (): void => {
         designBar.style.height = `${0}px`
         codeBar.style.height = `${0}px`
         creativityBar.style.height = `${0}px`
-        player.style.bottom = `${275}px`;
+        player.style.bottom = `${290}px`;
     } else if (parseInt(playerLeftPos) > 1890 && parseInt(playerLeftPos) < 1960) {
         designBar.style.height = `${340}px`
     } else if (parseInt(playerLeftPos) > 1960 && parseInt(playerLeftPos) < 2010) {
@@ -164,7 +145,7 @@ const controllPlayerPosition = (): void => {
     } else if (parseInt(playerLeftPos) > 3150 && parseInt(playerLeftPos) < 3180) {
         playerFly = false;
         bat.style.bottom = `${533}px`
-        player.style.bottom = `${275}px`
+        player.style.bottom = `${290}px`
     } else if (parseInt(playerLeftPos) > 3180 && parseInt(playerLeftPos) < 4280) {
         playerFly = true;
         bat.style.bottom = `${parseInt(playerBottomPos) - 30}px`
@@ -178,51 +159,51 @@ const controllPlayerPosition = (): void => {
         skillsBars.style.bottom = `${1500}px`;
         skillsLabels.style.bottom = `${-1000}px`;
     } else if (parseInt(playerLeftPos) > 4500 && parseInt(playerLeftPos) < 5750) {
-        skillsBars.style.bottom = `${250}px`;
-        skillsLabels.style.bottom = `${280}px`;
+        skillsBars.style.bottom = `${265}px`;
+        skillsLabels.style.bottom = `${295}px`;
         player.style.bottom = `${420}px`
     } else if (parseInt(playerLeftPos) > 5750 && parseInt(playerLeftPos) < 5800) {
         //player.style.bottom = `${270}px`
         player.style.bottom = `${420}px`
 
-    } else if (parseInt(playerLeftPos) > 5800 && parseInt(playerLeftPos) < 5825){
+    } else if (parseInt(playerLeftPos) > 5800 && parseInt(playerLeftPos) < 5825) {
         player.style.bottom = `${420}px`
 
-    } else if (parseInt(playerLeftPos) > 5825 && parseInt(playerLeftPos) < 5850){
+    } else if (parseInt(playerLeftPos) > 5825 && parseInt(playerLeftPos) < 5850) {
         player.style.bottom = `${430}px`
-    }else if (parseInt(playerLeftPos) > 5850 && parseInt(playerLeftPos) < 5875){
+    } else if (parseInt(playerLeftPos) > 5850 && parseInt(playerLeftPos) < 5875) {
         player.style.bottom = `${440}px`
-    }else if (parseInt(playerLeftPos) > 5875 && parseInt(playerLeftPos) < 5900){
+    } else if (parseInt(playerLeftPos) > 5875 && parseInt(playerLeftPos) < 5900) {
         player.style.bottom = `${450}px`
         marioPlant.style.bottom = `${0}px`
-    }else if (parseInt(playerLeftPos) > 5900 && parseInt(playerLeftPos) < 5925){
+    } else if (parseInt(playerLeftPos) > 5900 && parseInt(playerLeftPos) < 5925) {
         player.style.bottom = `${460}px`
-        
-    }else if (parseInt(playerLeftPos) > 5925 && parseInt(playerLeftPos) < 5950){
+
+    } else if (parseInt(playerLeftPos) > 5925 && parseInt(playerLeftPos) < 5950) {
         player.style.bottom = `${470}px`
         marioPlant.style.bottom = `${170}px`
-    }else if (parseInt(playerLeftPos) > 5950 && parseInt(playerLeftPos) < 5975) {
+    } else if (parseInt(playerLeftPos) > 5950 && parseInt(playerLeftPos) < 5975) {
         player.style.bottom = `${455}px`
-        
-    } else if (parseInt(playerLeftPos) > 5975 && parseInt(playerLeftPos) < 6000){
+
+    } else if (parseInt(playerLeftPos) > 5975 && parseInt(playerLeftPos) < 6000) {
         player.style.bottom = `${430}px`
         marioPlant.style.bottom = `${0}px`
-    } else if (parseInt(playerLeftPos) > 6000 && parseInt(playerLeftPos) < 6025){
+    } else if (parseInt(playerLeftPos) > 6000 && parseInt(playerLeftPos) < 6025) {
         player.style.bottom = `${405}px`
-    }else if (parseInt(playerLeftPos) > 6025 && parseInt(playerLeftPos) < 6050){
+    } else if (parseInt(playerLeftPos) > 6025 && parseInt(playerLeftPos) < 6050) {
         player.style.bottom = `${370}px`
-        
-    }else if (parseInt(playerLeftPos) > 6050 && parseInt(playerLeftPos) < 6075){
+
+    } else if (parseInt(playerLeftPos) > 6050 && parseInt(playerLeftPos) < 6075) {
         player.style.bottom = `${340}px`
-        
-    }else if (parseInt(playerLeftPos) > 6075 && parseInt(playerLeftPos) < 6100){
+
+    } else if (parseInt(playerLeftPos) > 6075 && parseInt(playerLeftPos) < 6100) {
         player.style.bottom = `${310}px`
         //player.style.transform = `rotate(${7200}deg)`
-    }else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125){
-        player.style.bottom = `${270}px`
+    } else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125) {
+        player.style.bottom = `${285}px`
         player.style.transform = `rotate(${0}deg)`
-    }else if (parseInt(playerLeftPos) > 6125){
-        player.style.bottom = `${270}px`
+    } else if (parseInt(playerLeftPos) > 6125) {
+        player.style.bottom = `${285}px`
     }
     //console.log(playerLeftPos)
 }
@@ -233,12 +214,13 @@ paintGrid(48, ctx, grid)
 const gameLoop = (): void => {
     ctx.save();
     interval++;
-    //window.scrollY = parseInt(playerLeftPos)
+    //window.scrollX = parseInt(playerLeftPos)
     //console.log(window.scrollY)
     //ctx.translate(parseInt(playerLeftPos) - canvas.width / 2, parseInt(playerBottomPos) - canvas.height / 2);
+    if (interval > 150) {
+        cameraController()
+    }
     // Check player state to attach correct anim to it every frame
-    if (interval > 350)
-    //cameraController()
     if (playerChangedState) {
         playerScrollPos = parseInt(playerLeftPos);
         playerChangedState = false;
@@ -265,60 +247,61 @@ const render = setInterval((): void => {
 const about: any = document.querySelector('.about')
 about.style.display = "block";
 
-const iframesUl = document.querySelectorAll('.iframeLi');
-const projectsHeader = document.querySelector('.projectsHeader');
-const projectsParagraph = document.querySelector('.projectsParagraph');
-const projectsInfoUl = document.querySelector('.projectsInfoUl');
-const projectsInfoLi = document.createAttribute('li');
-const visitWebsite:HTMLLinkElement = document.querySelector('.projectsLinks');
-for(let i =0; i<iframesUl.length; i++){
-    iframesUl[i].addEventListener('click', function(){
-        const iframe:any = document.querySelector('.planetarium');
-        for(let y =0; y<iframesUl.length; y++){
+const iframesUl: NodeListOf<Element> = document.querySelectorAll('.iframeLi');
+const projectsHeader: HTMLElement = document.querySelector('.projectsHeader');
+const projectsParagraph: HTMLElement = document.querySelector('.projectsParagraph');
+const projectsInfoUl: HTMLElement = document.querySelector('.projectsInfoUl');
+const visitWebsite: HTMLLinkElement = document.querySelector('.projectsLinks');
+for (let i = 0; i < iframesUl.length; i++) {
+    iframesUl[i].addEventListener('click', function () {
+        const iframe: HTMLIFrameElement = document.querySelector('.planetarium');
+        for (let y = 0; y < iframesUl.length; y++) {
             iframesUl[y].classList.remove('planetariumLi');
         }
-        if(i ===0){
-        iframe.src = "https://swedishsailor.github.io/planetarium/";
-        iframesUl[i].classList.add('planetariumLi');
-        projectsHeader.textContent = 'Planetarium'
-        projectsParagraph.textContent = 'Planetarium is a solar system model. You can freely manipulate the view by grabbing window or by scrolling '
-        projectsInfoUl.innerHTML = '<li class="projectsInfoLi">JavaScript</li>';
-        projectsInfoUl.innerHTML += '<li class="projectsInfoLi">THREE.js</li>';
-        visitWebsite.href = "https://swedishsailor.github.io/planetarium/";
-    }
-        else if(i === 1){
-        iframe.src = "https://deepintopic.pl/";
-        iframesUl[i].classList.add('planetariumLi');
-        projectsHeader.textContent = 'Depp in topic';
-        projectsParagraph.textContent = 'Deep in topic is a personal pseudo-scientific blog'
-        projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
-        projectsInfoUl.innerHTML += '<li class="projectsInfoLi">Redux</li>';
-        visitWebsite.href = "https://deepintopic.pl/";
-    }
-        else if(i===2){
-        iframe.src = "https://swedishsailor.github.io/";
-        iframesUl[i].classList.add('planetariumLi');
-        projectsHeader.textContent = 'Old Portfolio'
-        projectsParagraph.textContent = 'Old portfolio site with some unity projects in game section :)'
-        projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
-        visitWebsite.href = "https://swedishsailor.github.io/";
-    }
-        else if(i===3){
-        iframe.src = "https://swedishsailor.github.io/frankyCars/";
-        iframesUl[i].classList.add('planetariumLi');
-        projectsHeader.textContent = "Franky Cars"
-        projectsParagraph.textContent = 'a website created in 5 days. Simple car warehouse asortment demonstration'
-        projectsInfoUl.innerHTML ='<li class="projectsInfoLi">React Typescript</li>';
-        projectsInfoUl.innerHTML +='<li class="projectsInfoLi">Sqlite</li>';
-        visitWebsite.href = "https://swedishsailor.github.io/frankyCars/";
-    }
-    })  
+        if (i === 0) {
+            iframe.src = "https://swedishsailor.github.io/planetarium/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = 'Planetarium'
+            projectsParagraph.textContent = 'Planetarium is a solar system model. You can freely manipulate the view by grabbing window or by scrolling '
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">JavaScript</li>';
+            projectsInfoUl.innerHTML += '<li class="projectsInfoLi">THREE.js</li>';
+            visitWebsite.href = "https://swedishsailor.github.io/planetarium/";
+        }
+        else if (i === 1) {
+            iframe.src = "https://deepintopic.pl/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = 'Depp in topic';
+            projectsParagraph.textContent = 'Deep in topic is a personal pseudo-scientific blog'
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
+            projectsInfoUl.innerHTML += '<li class="projectsInfoLi">Redux</li>';
+            visitWebsite.href = "https://deepintopic.pl/";
+        }
+        else if (i === 2) {
+            iframe.src = "https://swedishsailor.github.io/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = 'Old Portfolio'
+            projectsParagraph.textContent = 'Old portfolio site with some unity projects in game section :)'
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React</li>';
+            visitWebsite.href = "https://swedishsailor.github.io/";
+        }
+        else if (i === 3) {
+            iframe.src = "https://swedishsailor.github.io/frankyCars/";
+            iframesUl[i].classList.add('planetariumLi');
+            projectsHeader.textContent = "Franky Cars"
+            projectsParagraph.textContent = 'a website created in 5 days. Simple car warehouse asortment demonstration'
+            projectsInfoUl.innerHTML = '<li class="projectsInfoLi">React Typescript</li>';
+            projectsInfoUl.innerHTML += '<li class="projectsInfoLi">Sqlite</li>';
+            visitWebsite.href = "https://swedishsailor.github.io/frankyCars/";
+        }
+    })
 }
-// Always comeback to the start with camera ASAP
-/*window.scrollTo({
-    left:0,
-    top:0,
-    behavior:'auto'
-});*/
+// Always comeback to the start with camera ASAP and run it as a LAST CODE LINE
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+} else {
+    window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+    }
+}
 // Init first UL iframe item
 iframesUl[0].classList.add('planetariumLi');
