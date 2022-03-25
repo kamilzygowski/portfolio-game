@@ -1,6 +1,19 @@
 import '@/styles/index.scss';
 import { paintGrid } from './map';
 import { throttle, createGrid } from './utils';
+const browserName = (function (agent) {
+    switch (true) {
+        case agent.indexOf("edge") > -1: return "MS Edge";
+        case agent.indexOf("edg/") > -1: return "Edge ( chromium based)";
+        case agent.indexOf("opr") > -1 && !!window.opr: return "Opera";
+        case agent.indexOf("chrome") > -1 && !!window.chrome: return "Chrome";
+        case agent.indexOf("trident") > -1: return "MS IE";
+        case agent.indexOf("firefox") > -1: return "Mozilla Firefox";
+        case agent.indexOf("safari") > -1: return "Safari";
+        default: return "other";
+    }
+})(window.navigator.userAgent.toLowerCase());
+console.log(browserName);
 const player = document.querySelector('.player');
 let playerLeftPos = '';
 let playerBottomPos = '';
@@ -10,6 +23,7 @@ let playerMoves = false;
 let playerFly = false;
 let playerChangedState = false;
 let treasureChestOpened = false;
+let firstRender = true;
 let grid = [];
 let playerScrollPos = 0;
 const playerRunLeft = 'https://i.postimg.cc/K8W8XYbr/runLeft.gif';
@@ -24,6 +38,7 @@ const bat = document.querySelector('.bat');
 const skillsBars = document.querySelector('.skillsBars');
 const skillsLabels = document.querySelector('.skillsLabels');
 const marioPlant = document.querySelector('.marioPlant');
+const iframe = document.querySelector('.planetarium');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 10400;
@@ -35,7 +50,7 @@ const onKeyDown = (e) => {
     {
         getPlayerPos();
         switch (e.key) {
-            case 'd': {
+            case 'd' || 'D': {
                 if (playerFaceRight === undefined) {
                     playerFaceRight = null;
                 }
@@ -45,12 +60,20 @@ const onKeyDown = (e) => {
                         playerFaceRight = true;
                         playerChangedState = true;
                     }
-                    playerScrollPos = parseInt(playerLeftPos) + 3150;
+                    if (browserName === "Edge ( chromium based)") {
+                        playerScrollPos = parseInt(playerLeftPos);
+                    }
+                    else if (browserName === "Chrome") {
+                        playerScrollPos = parseInt(playerLeftPos) + 3150;
+                    }
+                    else {
+                        playerScrollPos = parseInt(playerLeftPos);
+                    }
                     player.style.left = `${parseInt(playerLeftPos) + 22}px`;
-                    break;
                 }
+                break;
             }
-            case 'a': {
+            case 'a' || 'A': {
                 if (playerFaceRight === null) {
                     playerFaceRight = undefined;
                 }
@@ -60,10 +83,18 @@ const onKeyDown = (e) => {
                         playerFaceRight = false;
                         playerChangedState = true;
                     }
-                    playerScrollPos = parseInt(playerLeftPos) - 6150;
+                    if (browserName === "Edge ( chromium based)") {
+                        playerScrollPos = parseInt(playerLeftPos);
+                    }
+                    else if (browserName === "Chrome") {
+                        playerScrollPos = parseInt(playerLeftPos) - 6150;
+                    }
+                    else {
+                        playerScrollPos = parseInt(playerLeftPos);
+                    }
                     player.style.left = `${parseInt(playerLeftPos) - 22}px`;
-                    break;
                 }
+                break;
             }
         }
     }
@@ -89,7 +120,13 @@ const fromPxToIntConveter = (px) => {
     return parseInt(res);
 };
 function cameraController() {
-    window.scroll({
+    const basicWidth = window.innerWidth;
+    const basicHeight = window.innerHeight;
+    window.innerWidth = 50;
+    window.innerHeight = 50;
+    window.innerHeight = basicHeight;
+    window.innerWidth = basicWidth;
+    window.scrollTo({
         left: playerScrollPos - 400,
         top: 0,
         behavior: 'smooth'
@@ -199,6 +236,7 @@ const controllPlayerPosition = () => {
         player.style.bottom = `${340}px`;
     }
     else if (parseInt(playerLeftPos) > 6075 && parseInt(playerLeftPos) < 6100) {
+        iframe.style.display = 'none';
         player.style.bottom = `${310}px`;
     }
     else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125) {
@@ -207,16 +245,13 @@ const controllPlayerPosition = () => {
     }
     else if (parseInt(playerLeftPos) > 6125) {
         player.style.bottom = `${285}px`;
+        iframe.style.display = 'block';
     }
 };
 createGrid(48, grid, canvas);
 paintGrid(48, ctx, grid);
 const gameLoop = () => {
-    ctx.save();
     interval++;
-    if (interval > 150) {
-        cameraController();
-    }
     if (playerChangedState) {
         playerScrollPos = parseInt(playerLeftPos);
         playerChangedState = false;
@@ -233,10 +268,9 @@ const gameLoop = () => {
             playerImg.src = playerIdleLeft;
         }
     }
-    interval++;
     getPlayerPos();
     controllPlayerPosition();
-    ctx.restore();
+    cameraController();
 };
 const render = setInterval(() => {
     gameLoop();
@@ -258,7 +292,7 @@ for (let i = 0; i < iframesUl.length; i++) {
             iframe.src = "https://swedishsailor.github.io/planetarium/";
             iframesUl[i].classList.add('planetariumLi');
             projectsHeader.textContent = 'Planetarium';
-            projectsParagraph.textContent = 'Planetarium is a solar system model. You can freely manipulate the view by grabbing window or by scrolling ';
+            projectsParagraph.textContent = 'It\'s a solar system model. You can freely manipulate the view by grabbing window or by scrolling ';
             projectsInfoUl.innerHTML = '<li class="projectsInfoLi">JavaScript</li>';
             projectsInfoUl.innerHTML += '<li class="projectsInfoLi">THREE.js</li>';
             visitWebsite.href = "https://swedishsailor.github.io/planetarium/";
@@ -291,12 +325,14 @@ for (let i = 0; i < iframesUl.length; i++) {
         }
     });
 }
-if (history.scrollRestoration) {
-    history.scrollRestoration = 'manual';
+if (firstRender) {
+    if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+    }
+    else {
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
+    }
+    firstRender = false;
 }
-else {
-    window.onbeforeunload = function () {
-        window.scrollTo(0, 0);
-    };
-}
-iframesUl[0].classList.add('planetariumLi');

@@ -13,8 +13,7 @@
 html {
   background: #192a56;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width:100%;
   scroll-behavior: auto;
   overscroll-behavior: contain;
   
@@ -110,6 +109,7 @@ iframe:focus {
   font-size: 60px;
   margin: 0;
   text-align: center;
+  width:460px;
 }
 
 img {
@@ -383,6 +383,7 @@ span {
   border-radius: 2.5px;
   height: 533px;
   width: 459px;
+  display: none;
 }
 .planetariumLi {
   background-image: linear-gradient(
@@ -399,32 +400,8 @@ span {
     hsl(0deg 0% 55%) 99%
   );
 }
-.dit {
-  transform: translate(-237px, 52px);
-  padding-bottom: -10px;
-  border: none;
-  border-radius: 2.5px;
-  height: 533px;
-  width: 459px;
-}
-.swedish {
-  transform: translate(-237px, 52px);
-  padding-bottom: -10px;
-  border: none;
-  border-radius: 2.5px;
-  height: 533px;
-  width: 459px;
-}
-.frankyCars {
-  transform: translate(-237px, 52px);
-  padding-bottom: -10px;
-  border: none;
-  border-radius: 2.5px;
-  height: 533px;
-  width: 459px;
-}
 .projectsIframe {
-  background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
+  background: url("https://i.postimg.cc/wBTYR4Vc/Untitled22-1.png");
   position: absolute;
   left: 7150px;
   bottom: 240px;
@@ -432,36 +409,6 @@ span {
   height: 604px;
   background-size: contain;
   background-repeat: no-repeat;
-}
-.projectsIframe2 {
-  background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
-  position: absolute;
-  left: 8550px;
-  bottom: 240px;
-  width: 484px;
-  height: 604px;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.projectsIframe3 {
-  background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
-  position: absolute;
-  left: 10050px;
-  bottom: 240px;
-  width: 484px;
-  height: 604px;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.projectsIframe4 {
-  background: url("https://i.postimg.cc/Zq4vZX0J/Untitled22-1.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  left: 9850px;
-  bottom: 240px;
-  width: 484px;
-  height: 604px;
 }
 
 @keyframes neon {

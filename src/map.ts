@@ -15,6 +15,30 @@ const sea1 = new Image();
 sea1.src = "https://i.postimg.cc/nzgNXR49/sea1.png"
 const sea2 = new Image();
 sea2.src = "https://i.postimg.cc/NFXSm6DJ/sea2.png"
+const leftGround = new Image();
+leftGround.src = "https://i.postimg.cc/Xq8Ykpw9/ground-Left.png"
+const middleGroundEmpty = new Image();
+middleGroundEmpty.src = "https://i.postimg.cc/hPDjP1Bs/ground-Middle-Empty.png"
+const middleGroundNotEmpty = new Image();
+middleGroundNotEmpty.src = "https://i.postimg.cc/bYHrhFKd/ground-Middle-Not-Empty.png"
+const rightGround = new Image();
+rightGround.src = "https://i.postimg.cc/cCZJ3Q8s/ground-Right.png"
+const blankEarth = new Image();
+blankEarth.src = "https://i.postimg.cc/NFQShxn2/earth-Blank.png";
+const leftStone = new Image();
+leftStone.src = "https://i.postimg.cc/VLH8t5tT/left-Stone.png";
+const middleStone = new Image();
+middleStone.src = "https://i.postimg.cc/Sx2pfq7K/middle-Stone.png";
+const rightStone = new Image();
+rightStone.src = "https://i.postimg.cc/zGsYdM0F/right-Stone.png"
+const levitatingGround = new Image();
+levitatingGround.src = "https://i.postimg.cc/SN0wVZcq/lebitating-Ground.png";
+const leftBarrier = new Image();
+leftBarrier.src = "https://i.postimg.cc/13B2ms25/left-Barrier.png"
+const middleBarrier = new Image();
+middleBarrier.src = "https://i.postimg.cc/NjBZv5Nz/middle-Barrier.png"
+const rightBarrier = new Image();
+rightBarrier.src = "https://i.postimg.cc/3JgzqgZG/right-Barrier.png";
 
 export const paintGrid = (sqmSize: number, ctx, grid): void => {
     window.onload = function () {
@@ -63,9 +87,10 @@ export const paintGrid = (sqmSize: number, ctx, grid): void => {
         const clouds = new Image();
         clouds.src = "https://i.postimg.cc/ZYHFT7Sw/clouds.png"
         clouds.onload = function () {
-            for (let i = 0; i < 9200; i++) {
+            for (let i = 0; i < Math.ceil(10400/544); i++) {
                 ctx.drawImage(clouds, i * 544, window.innerHeight - 453)
             }
+
             ctx.drawImage(leftStone, groundTileWidth * 44, groundTileYPosLvl2);
             ctx.drawImage(middleStone, groundTileWidth * 45 - 32, groundTileYPosLvl2);
             ctx.drawImage(middleStone, groundTileWidth * 46 - 32 * 2, groundTileYPosLvl2);
@@ -198,32 +223,5 @@ export const paintGrid = (sqmSize: number, ctx, grid): void => {
         ctx.drawImage(middleBarrier, 6176 + 41 + 32 * 48, groundTileYPosLvl2 + 155);
         ctx.drawImage(middleBarrier, 6176 + 41 + 32 * 49, groundTileYPosLvl2 + 155);
         ctx.drawImage(rightBarrier, 6176 + 41 + 32 * 50, groundTileYPosLvl2 + 155);
-
     }
 }
-
-
-const leftGround = new Image();
-leftGround.src = "https://i.postimg.cc/Xq8Ykpw9/ground-Left.png"
-const middleGroundEmpty = new Image();
-middleGroundEmpty.src = "https://i.postimg.cc/hPDjP1Bs/ground-Middle-Empty.png"
-const middleGroundNotEmpty = new Image();
-middleGroundNotEmpty.src = "https://i.postimg.cc/bYHrhFKd/ground-Middle-Not-Empty.png"
-const rightGround = new Image();
-rightGround.src = "https://i.postimg.cc/cCZJ3Q8s/ground-Right.png"
-const blankEarth = new Image();
-blankEarth.src = "https://i.postimg.cc/NFQShxn2/earth-Blank.png";
-const leftStone = new Image();
-leftStone.src = "https://i.postimg.cc/VLH8t5tT/left-Stone.png";
-const middleStone = new Image();
-middleStone.src = "https://i.postimg.cc/Sx2pfq7K/middle-Stone.png";
-const rightStone = new Image();
-rightStone.src = "https://i.postimg.cc/zGsYdM0F/right-Stone.png"
-const levitatingGround = new Image();
-levitatingGround.src = "https://i.postimg.cc/SN0wVZcq/lebitating-Ground.png";
-const leftBarrier = new Image();
-leftBarrier.src = "https://i.postimg.cc/13B2ms25/left-Barrier.png"
-const middleBarrier = new Image();
-middleBarrier.src = "https://i.postimg.cc/NjBZv5Nz/middle-Barrier.png"
-const rightBarrier = new Image();
-rightBarrier.src = "https://i.postimg.cc/3JgzqgZG/right-Barrier.png";

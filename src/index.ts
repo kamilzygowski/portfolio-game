@@ -3,6 +3,21 @@ import '@/styles/index.scss'
 import { paintGrid } from './map';
 import { throttle, createGrid, scrollToModified } from './utils';
 
+// CHECK WHICH BROWSER CLIENT USE
+const browserName = (function (agent) {
+    switch (true) {
+        case agent.indexOf("edge") > -1: return "MS Edge";
+        case agent.indexOf("edg/") > -1: return "Edge ( chromium based)";
+        case agent.indexOf("opr") > -1 && !!window.opr: return "Opera";
+        case agent.indexOf("chrome") > -1 && !!window.chrome: return "Chrome";
+        case agent.indexOf("trident") > -1: return "MS IE";
+        case agent.indexOf("firefox") > -1: return "Mozilla Firefox";
+        case agent.indexOf("safari") > -1: return "Safari";
+        default: return "other";
+    }
+})(window.navigator.userAgent.toLowerCase());
+console.log(browserName)
+
 const player: HTMLElement = document.querySelector('.player');
 let playerLeftPos: string = '';
 let playerBottomPos: string = '';
@@ -12,6 +27,7 @@ let playerMoves: boolean = false;
 let playerFly: boolean = false;
 let playerChangedState: boolean = false;
 let treasureChestOpened: boolean = false;
+let firstRender: boolean = true;
 let grid = [];
 let playerScrollPos: number = 0;
 // Player images
@@ -28,6 +44,7 @@ const bat: HTMLImageElement = document.querySelector('.bat');
 const skillsBars: HTMLElement = document.querySelector('.skillsBars');
 const skillsLabels: HTMLElement = document.querySelector('.skillsLabels');
 const marioPlant: HTMLElement = document.querySelector('.marioPlant');
+const iframe: HTMLElement = document.querySelector('.planetarium');
 const canvas: any = document.getElementById('canvas');
 const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 canvas.width = 10400;
@@ -42,7 +59,7 @@ const onKeyDown = (e: KeyboardEvent) => {
         getPlayerPos();
         // Moving left/right
         switch (e.key) {
-            case 'd': {
+            case 'd' || 'D': {
                 if (playerFaceRight === undefined) {
                     playerFaceRight = null
                 }
@@ -52,13 +69,18 @@ const onKeyDown = (e: KeyboardEvent) => {
                         playerFaceRight = true;
                         playerChangedState = true;
                     }
-                    playerScrollPos = parseInt(playerLeftPos) + 3150
+                    if (browserName === "Edge ( chromium based)") {
+                        playerScrollPos = parseInt(playerLeftPos)
+                    } else if (browserName === "Chrome") {
+                        playerScrollPos = parseInt(playerLeftPos) + 3150
+                    } else {
+                        playerScrollPos = parseInt(playerLeftPos)
+                    }
                     player.style.left = `${parseInt(playerLeftPos) + 22}px`;
-
-                    break;
                 }
+                break;
             }
-            case 'a': {
+            case 'a' || 'A': {
                 if (playerFaceRight === null) {
                     playerFaceRight = undefined;
                 }
@@ -69,13 +91,20 @@ const onKeyDown = (e: KeyboardEvent) => {
                         playerFaceRight = false;
                         playerChangedState = true;
                     }
-                    playerScrollPos = parseInt(playerLeftPos) - 6150
+                    if (browserName === "Edge ( chromium based)") {
+                        playerScrollPos = parseInt(playerLeftPos)
+                    } else if (browserName === "Chrome") {
+                        playerScrollPos = parseInt(playerLeftPos) - 6150
+                    } else {
+                        playerScrollPos = parseInt(playerLeftPos)
+                    }
                     player.style.left = `${parseInt(playerLeftPos) - 22}px`;
-
-                    break;
                 }
+                break;
+                // Prevent full screen shortcut
             }
         }
+
     }
 }
 // Attaching event listener to playerm ovement, throttled is used to not get too far on key continuously pressed
@@ -98,8 +127,18 @@ const fromPxToIntConveter = (px) => {
     }
     return parseInt(res);
 }
+
 function cameraController() {
-    window.scroll({
+    const basicWidth = window.innerWidth;
+    const basicHeight = window.innerHeight;
+    window.innerWidth = 50;
+    window.innerHeight = 50;
+    window.innerHeight = basicHeight;
+    window.innerWidth = basicWidth;
+    //console.log(window.innerHeight, window.innerWidth)
+
+
+    window.scrollTo({
         left: playerScrollPos - 400,
         top: 0,
         behavior: 'smooth'
@@ -197,6 +236,7 @@ const controllPlayerPosition = (): void => {
         player.style.bottom = `${340}px`
 
     } else if (parseInt(playerLeftPos) > 6075 && parseInt(playerLeftPos) < 6100) {
+        iframe.style.display = 'none';
         player.style.bottom = `${310}px`
         //player.style.transform = `rotate(${7200}deg)`
     } else if (parseInt(playerLeftPos) > 6100 && parseInt(playerLeftPos) < 6125) {
@@ -204,22 +244,22 @@ const controllPlayerPosition = (): void => {
         player.style.transform = `rotate(${0}deg)`
     } else if (parseInt(playerLeftPos) > 6125) {
         player.style.bottom = `${285}px`
+        iframe.style.display = 'block';
     }
     //console.log(playerLeftPos)
 }
+
 
 createGrid(48, grid, canvas);
 paintGrid(48, ctx, grid)
 
 const gameLoop = (): void => {
-    ctx.save();
+
     interval++;
     //window.scrollX = parseInt(playerLeftPos)
     //console.log(window.scrollY)
     //ctx.translate(parseInt(playerLeftPos) - canvas.width / 2, parseInt(playerBottomPos) - canvas.height / 2);
-    if (interval > 150) {
-        cameraController()
-    }
+
     // Check player state to attach correct anim to it every frame
     if (playerChangedState) {
         playerScrollPos = parseInt(playerLeftPos);
@@ -234,15 +274,20 @@ const gameLoop = (): void => {
             playerImg.src = playerIdleLeft
         }
     }
-    interval++;
     getPlayerPos();
     controllPlayerPosition();
-    ctx.restore();
+    cameraController()
 }
-
 const render = setInterval((): void => {
     gameLoop();
 }, 1000 / 60)
+
+/*window.requestAnimationFrame(() => {
+    const render = setInterval((): void => {
+    gameLoop();
+}, 1000 / 60)
+})*/
+
 
 const about: any = document.querySelector('.about')
 about.style.display = "block";
@@ -262,7 +307,7 @@ for (let i = 0; i < iframesUl.length; i++) {
             iframe.src = "https://swedishsailor.github.io/planetarium/";
             iframesUl[i].classList.add('planetariumLi');
             projectsHeader.textContent = 'Planetarium'
-            projectsParagraph.textContent = 'Planetarium is a solar system model. You can freely manipulate the view by grabbing window or by scrolling '
+            projectsParagraph.textContent = 'It\'s a solar system model. You can freely manipulate the view by grabbing window or by scrolling '
             projectsInfoUl.innerHTML = '<li class="projectsInfoLi">JavaScript</li>';
             projectsInfoUl.innerHTML += '<li class="projectsInfoLi">THREE.js</li>';
             visitWebsite.href = "https://swedishsailor.github.io/planetarium/";
@@ -296,12 +341,18 @@ for (let i = 0; i < iframesUl.length; i++) {
     })
 }
 // Always comeback to the start with camera ASAP and run it as a LAST CODE LINE
-if (history.scrollRestoration) {
-    history.scrollRestoration = 'manual';
-} else {
-    window.onbeforeunload = function () {
-        window.scrollTo(0, 0);
+if (firstRender) {
+    if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+    } else {
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
     }
+    firstRender = false;
 }
-// Init first UL iframe item
-iframesUl[0].classList.add('planetariumLi');
+
+/*
+setTimeout(() => {
+    document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'f11' }));
+}, 0)*/
